@@ -5,6 +5,45 @@
 //  Created by Dr. Kerem Koseoglu on 22.06.2022.
 //
 
+#warning("MAIN TODO")
+/*
+ DESIGN
+    çözünürlüğe karar ver
+    logo
+ SORU BANKASI
+    eş anlamlı kelimeler
+    eş anlamlı kelimeden bilmece üretme
+    üretilen bilmeceleri buffer'a al, buffer'dan sor
+    daha önceden sorulmuş soruları biriktir, tekrar sorma
+    yeni thread'da sürekli soru üretip buffer'ı doldurma
+ CEVAP KONTROLÜ
+    türkçe karakter toleransı ile cevapları kontrol edebilmeliyiz
+    cevabı bildiyse, buffer'dan düş ve sorulmuş sorulara ekle
+ GUI
+    entry screen
+    müzik aç / kapa
+    tutorial - hazır bilmecelerden
+        kırmızıadam = alaçatı
+        saçsızdoğurtucuk = kelebek
+        kelyösi = kedi
+        elyüt = allık
+    gerçek oyun - üretilen bilmecelerden
+    soru yüklenecek
+    buffer'da soru yoksa "please wait" ekranı, yeterince üretsin
+    soru ekrana havalı gelsin
+    cevap beklerken soru kıpırdasın
+    cevabı gösterme animasyonu (ters dönme vs)
+    ses efektleri
+    güzel background
+    "bilemedim, cevabı göster" butonu
+ TEST
+    iphone test
+    ipad test
+ SALES
+    ilk X bilmece bedava, sonrası parayla gibi olsun
+
+ */
+
 import UIKit
 
 @main

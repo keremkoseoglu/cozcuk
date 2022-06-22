@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C99BDE428637E8D002230EE /* cozcuk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cozcuk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C99BDE428637E8D002230EE /* Çözcük.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Çözcük.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C99BDE728637E8D002230EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C99BDE928637E8D002230EE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		0C99BDEB28637E8D002230EE /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		0C99BDE528637E8D002230EE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0C99BDE428637E8D002230EE /* cozcuk.app */,
+				0C99BDE428637E8D002230EE /* Çözcük.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,7 +88,7 @@
 			);
 			name = cozcuk;
 			productName = cozcuk;
-			productReference = 0C99BDE428637E8D002230EE /* cozcuk.app */;
+			productReference = 0C99BDE428637E8D002230EE /* Çözcük.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -307,7 +307,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.keremkoseoglu.cozcuk;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Çözcük";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -335,7 +335,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.keremkoseoglu.cozcuk;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Çözcük";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
