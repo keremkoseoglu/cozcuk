@@ -10,13 +10,14 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    private static let SCENE = "LetterJumpPlaygroundScene"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = LetterJumpPlaygroundScene(fileNamed: "LetterJumpPlaygroundScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 

@@ -11,6 +11,8 @@
     çözünürlüğe karar ver
     logo
  SORU BANKASI
+    -> ios'a CSV gibi bir dosya nasıl yüklenebilir
+    eş anlamlı kelime bankası oluştur
     eş anlamlı kelimeler
     eş anlamlı kelimeden bilmece üretme
     üretilen bilmeceleri buffer'a al, buffer'dan sor
@@ -36,12 +38,16 @@
     ses efektleri
     güzel background
     "bilemedim, cevabı göster" butonu
+    launch screen
+    node sayısına dikkat - işi biten node'ları yok et
  TEST
     iphone test
     ipad test
  SALES
     ilk X bilmece bedava, sonrası parayla gibi olsun
-
+FINAL
+    warning kalmasın
+    app'taki node collision vs göstermeyi test mi değil mi haline getir
  */
 
 import UIKit
