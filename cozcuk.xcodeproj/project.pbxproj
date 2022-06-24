@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C55E850286444DE008B24DA /* synonym.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0C55E84F286444DE008B24DA /* synonym.txt */; };
+		0C55E85328644571008B24DA /* SynonymDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E85228644571008B24DA /* SynonymDatabase.swift */; };
+		0C55E86A28649538008B24DA /* SynonymDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E86928649538008B24DA /* SynonymDatabaseTest.swift */; };
+		0C55E8702864A58B008B24DA /* word.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0C55E86F2864A58B008B24DA /* word.txt */; };
+		0C55E8722864A5ED008B24DA /* WordDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E8712864A5ED008B24DA /* WordDatabase.swift */; };
+		0C55E8742864A675008B24DA /* TextFileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E8732864A675008B24DA /* TextFileReader.swift */; };
+		0C55E8762864A89A008B24DA /* WordDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E8752864A89A008B24DA /* WordDatabaseTest.swift */; };
+		0C55E87A2864B030008B24DA /* WordEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E8792864B030008B24DA /* WordEncoder.swift */; };
+		0C55E87C2864B15A008B24DA /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E87B2864B15A008B24DA /* Puzzle.swift */; };
+		0C55E87E2864B8D4008B24DA /* StringToolkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E87D2864B8D4008B24DA /* StringToolkit.swift */; };
+		0C55E8802864BA06008B24DA /* StringToolkitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E87F2864BA06008B24DA /* StringToolkitTest.swift */; };
+		0C55E8822864C084008B24DA /* WordEncoderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E8812864C084008B24DA /* WordEncoderTest.swift */; };
+		0C55E884286505A0008B24DA /* FlexibleSynonym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E883286505A0008B24DA /* FlexibleSynonym.swift */; };
 		0C99BDE828637E8D002230EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C99BDE728637E8D002230EE /* AppDelegate.swift */; };
 		0C99BDEA28637E8D002230EE /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0C99BDE928637E8D002230EE /* GameScene.sks */; };
 		0C99BDEC28637E8D002230EE /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0C99BDEB28637E8D002230EE /* Actions.sks */; };
@@ -17,9 +30,26 @@
 		0C99BDF828637E8F002230EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C99BDF628637E8F002230EE /* LaunchScreen.storyboard */; };
 		0C99BE012863AF4C002230EE /* LetterJumpPlaygroundScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0C99BE002863AF4C002230EE /* LetterJumpPlaygroundScene.sks */; };
 		0C99BE032863AF63002230EE /* LetterJumpPlaygroundScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C99BE022863AF63002230EE /* LetterJumpPlaygroundScene.swift */; };
+		0CB657AE286582E800CA0EE2 /* PuzzleQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB657AD286582E800CA0EE2 /* PuzzleQueue.swift */; };
+		0CB657B028658AEA00CA0EE2 /* PuzzleQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB657AF28658AEA00CA0EE2 /* PuzzleQueueTest.swift */; };
+		0CB657B52865A24F00CA0EE2 /* AnswerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB657B42865A24F00CA0EE2 /* AnswerChecker.swift */; };
+		0CB657B72865B10600CA0EE2 /* AnswerCheckerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB657B62865B10600CA0EE2 /* AnswerCheckerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C55E84F286444DE008B24DA /* synonym.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synonym.txt; sourceTree = "<group>"; };
+		0C55E85228644571008B24DA /* SynonymDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynonymDatabase.swift; sourceTree = "<group>"; };
+		0C55E86928649538008B24DA /* SynonymDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynonymDatabaseTest.swift; sourceTree = "<group>"; };
+		0C55E86F2864A58B008B24DA /* word.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = word.txt; sourceTree = "<group>"; };
+		0C55E8712864A5ED008B24DA /* WordDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDatabase.swift; sourceTree = "<group>"; };
+		0C55E8732864A675008B24DA /* TextFileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFileReader.swift; sourceTree = "<group>"; };
+		0C55E8752864A89A008B24DA /* WordDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordDatabaseTest.swift; sourceTree = "<group>"; };
+		0C55E8792864B030008B24DA /* WordEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEncoder.swift; sourceTree = "<group>"; };
+		0C55E87B2864B15A008B24DA /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
+		0C55E87D2864B8D4008B24DA /* StringToolkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringToolkit.swift; sourceTree = "<group>"; };
+		0C55E87F2864BA06008B24DA /* StringToolkitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringToolkitTest.swift; sourceTree = "<group>"; };
+		0C55E8812864C084008B24DA /* WordEncoderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordEncoderTest.swift; sourceTree = "<group>"; };
+		0C55E883286505A0008B24DA /* FlexibleSynonym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleSynonym.swift; sourceTree = "<group>"; };
 		0C99BDE428637E8D002230EE /* Çözcük.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Çözcük.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C99BDE728637E8D002230EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C99BDE928637E8D002230EE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -31,6 +61,10 @@
 		0C99BDF728637E8F002230EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C99BE002863AF4C002230EE /* LetterJumpPlaygroundScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LetterJumpPlaygroundScene.sks; sourceTree = "<group>"; };
 		0C99BE022863AF63002230EE /* LetterJumpPlaygroundScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterJumpPlaygroundScene.swift; sourceTree = "<group>"; };
+		0CB657AD286582E800CA0EE2 /* PuzzleQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleQueue.swift; sourceTree = "<group>"; };
+		0CB657AF28658AEA00CA0EE2 /* PuzzleQueueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleQueueTest.swift; sourceTree = "<group>"; };
+		0CB657B42865A24F00CA0EE2 /* AnswerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerChecker.swift; sourceTree = "<group>"; };
+		0CB657B62865B10600CA0EE2 /* AnswerCheckerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCheckerTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,10 +78,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C55E84E286444D4008B24DA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0C55E84F286444DE008B24DA /* synonym.txt */,
+				0C55E86F2864A58B008B24DA /* word.txt */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		0C55E8512864451C008B24DA /* Question */ = {
+			isa = PBXGroup;
+			children = (
+				0CB657B128659FD500CA0EE2 /* Database */,
+				0CB657B228659FED00CA0EE2 /* Puzzle */,
+				0CB657B32865A03E00CA0EE2 /* Utility */,
+			);
+			path = Question;
+			sourceTree = "<group>";
+		};
+		0C55E86828649521008B24DA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0C55E86928649538008B24DA /* SynonymDatabaseTest.swift */,
+				0C55E8752864A89A008B24DA /* WordDatabaseTest.swift */,
+				0C55E87F2864BA06008B24DA /* StringToolkitTest.swift */,
+				0C55E8812864C084008B24DA /* WordEncoderTest.swift */,
+				0CB657AF28658AEA00CA0EE2 /* PuzzleQueueTest.swift */,
+				0CB657B62865B10600CA0EE2 /* AnswerCheckerTest.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		0C99BDDB28637E8D002230EE = {
 			isa = PBXGroup;
 			children = (
 				0C99BDE628637E8D002230EE /* cozcuk */,
+				0C99BDFF2863AF24002230EE /* Playground */,
+				0C55E86828649521008B24DA /* Tests */,
 				0C99BDE528637E8D002230EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,7 +131,8 @@
 		0C99BDE628637E8D002230EE /* cozcuk */ = {
 			isa = PBXGroup;
 			children = (
-				0C99BDFF2863AF24002230EE /* Playground */,
+				0C55E84E286444D4008B24DA /* Assets */,
+				0C55E8512864451C008B24DA /* Question */,
 				0C99BDFE2863ACE6002230EE /* Scenes */,
 				0C99BDE728637E8D002230EE /* AppDelegate.swift */,
 				0C99BDEF28637E8D002230EE /* GameViewController.swift */,
@@ -91,6 +160,36 @@
 				0C99BE022863AF63002230EE /* LetterJumpPlaygroundScene.swift */,
 			);
 			path = Playground;
+			sourceTree = "<group>";
+		};
+		0CB657B128659FD500CA0EE2 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				0C55E883286505A0008B24DA /* FlexibleSynonym.swift */,
+				0C55E85228644571008B24DA /* SynonymDatabase.swift */,
+				0C55E8712864A5ED008B24DA /* WordDatabase.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		0CB657B228659FED00CA0EE2 /* Puzzle */ = {
+			isa = PBXGroup;
+			children = (
+				0CB657B42865A24F00CA0EE2 /* AnswerChecker.swift */,
+				0C55E87B2864B15A008B24DA /* Puzzle.swift */,
+				0CB657AD286582E800CA0EE2 /* PuzzleQueue.swift */,
+				0C55E8792864B030008B24DA /* WordEncoder.swift */,
+			);
+			path = Puzzle;
+			sourceTree = "<group>";
+		};
+		0CB657B32865A03E00CA0EE2 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				0C55E87D2864B8D4008B24DA /* StringToolkit.swift */,
+				0C55E8732864A675008B24DA /* TextFileReader.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +252,8 @@
 			files = (
 				0C99BDF328637E8D002230EE /* Main.storyboard in Resources */,
 				0C99BDEA28637E8D002230EE /* GameScene.sks in Resources */,
+				0C55E8702864A58B008B24DA /* word.txt in Resources */,
+				0C55E850286444DE008B24DA /* synonym.txt in Resources */,
 				0C99BE012863AF4C002230EE /* LetterJumpPlaygroundScene.sks in Resources */,
 				0C99BDF528637E8F002230EE /* Assets.xcassets in Resources */,
 				0C99BDF828637E8F002230EE /* LaunchScreen.storyboard in Resources */,
@@ -167,10 +268,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C55E8722864A5ED008B24DA /* WordDatabase.swift in Sources */,
+				0C55E87C2864B15A008B24DA /* Puzzle.swift in Sources */,
+				0CB657B028658AEA00CA0EE2 /* PuzzleQueueTest.swift in Sources */,
+				0C55E8762864A89A008B24DA /* WordDatabaseTest.swift in Sources */,
+				0C55E85328644571008B24DA /* SynonymDatabase.swift in Sources */,
 				0C99BDEE28637E8D002230EE /* GameScene.swift in Sources */,
+				0C55E86A28649538008B24DA /* SynonymDatabaseTest.swift in Sources */,
+				0C55E8822864C084008B24DA /* WordEncoderTest.swift in Sources */,
 				0C99BDF028637E8D002230EE /* GameViewController.swift in Sources */,
 				0C99BE032863AF63002230EE /* LetterJumpPlaygroundScene.swift in Sources */,
+				0C55E884286505A0008B24DA /* FlexibleSynonym.swift in Sources */,
 				0C99BDE828637E8D002230EE /* AppDelegate.swift in Sources */,
+				0CB657AE286582E800CA0EE2 /* PuzzleQueue.swift in Sources */,
+				0C55E8802864BA06008B24DA /* StringToolkitTest.swift in Sources */,
+				0C55E87A2864B030008B24DA /* WordEncoder.swift in Sources */,
+				0C55E8742864A675008B24DA /* TextFileReader.swift in Sources */,
+				0C55E87E2864B8D4008B24DA /* StringToolkit.swift in Sources */,
+				0CB657B72865B10600CA0EE2 /* AnswerCheckerTest.swift in Sources */,
+				0CB657B52865A24F00CA0EE2 /* AnswerChecker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

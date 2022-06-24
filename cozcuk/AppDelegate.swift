@@ -8,20 +8,9 @@
 #warning("MAIN TODO")
 /*
  DESIGN
-    çözünürlüğe karar ver
     logo
- SORU BANKASI
-    -> ios'a CSV gibi bir dosya nasıl yüklenebilir
-    eş anlamlı kelime bankası oluştur
-    eş anlamlı kelimeler
-    eş anlamlı kelimeden bilmece üretme
-    üretilen bilmeceleri buffer'a al, buffer'dan sor
-    daha önceden sorulmuş soruları biriktir, tekrar sorma
-    yeni thread'da sürekli soru üretip buffer'ı doldurma
- CEVAP KONTROLÜ
-    türkçe karakter toleransı ile cevapları kontrol edebilmeliyiz
-    cevabı bildiyse, buffer'dan düş ve sorulmuş sorulara ekle
  GUI
+    apple guideline'ları oku
     entry screen
     müzik aç / kapa
     tutorial - hazır bilmecelerden
@@ -30,16 +19,24 @@
         kelyösi = kedi
         elyüt = allık
     gerçek oyun - üretilen bilmecelerden
-    soru yüklenecek
+    soru yüklenecek (PuzzleQueue)
     buffer'da soru yoksa "please wait" ekranı, yeterince üretsin
     soru ekrana havalı gelsin
+    uzun soruların ekrana sığacağından emin ol
     cevap beklerken soru kıpırdasın
+    ipucu - Puzzle'daki component'lere göre kelimeleri ayır
+    kullanıcı cevap girebilecek
+    cevap kontrolü (AnswerChecker)
     cevabı gösterme animasyonu (ters dönme vs)
     ses efektleri
     güzel background
     "bilemedim, cevabı göster" butonu
     launch screen
     node sayısına dikkat - işi biten node'ları yok et
+ İÇERİK
+    gerçek sözlük yükle
+    gerçek eş anlamlı kelimeleri yükle
+    wordencodertest: sözlükten geniş geniş test yapsın
  TEST
     iphone test
     ipad test
@@ -60,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // AnswerCheckerTest().execute(); exit(0);
         return true
     }
 
