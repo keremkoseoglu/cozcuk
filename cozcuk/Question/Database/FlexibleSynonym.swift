@@ -55,7 +55,12 @@ class FlexibleSynonymManager {
         
         for finder in self.finders {
             result = finder.find(word: word, db: db)
-            if result.found {return result}
+            if !result.found {continue}
+            if result.synonym == word {
+                result.found = false
+                continue
+            }
+            return result
         }
         
         return result

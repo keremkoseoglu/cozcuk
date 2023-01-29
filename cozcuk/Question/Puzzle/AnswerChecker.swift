@@ -64,11 +64,6 @@ class AnswerChecker {
         return AnswerChecker.SINGLETON!
     }
     
-    private init() {
-        self.checkLogics = [ExactAnswerCheck(),
-                            TurkishTolerantAnswerCheck()]
-    }
-    
     public func checkAnswer(puzzleAnswer: String, userAnswer: String) -> Bool {
         if puzzleAnswer.isEmpty || userAnswer.isEmpty {return false}
         if puzzleAnswer.count != userAnswer.count {return false}
@@ -83,5 +78,10 @@ class AnswerChecker {
             }
         }
         return false
+    }
+    
+    private init() {
+        self.checkLogics = [ExactAnswerCheck(),
+                            TurkishTolerantAnswerCheck()]
     }
 }

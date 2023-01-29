@@ -64,8 +64,8 @@ class PuzzleQueue {
         var attempts: Int = 0
         
         while !result.built {
-            let question    = self.wordDB.popRandomWord()
-            result          = try self.encoder.encode(word: question)
+            let randomWord  = self.wordDB.popRandomWord()
+            result          = try self.encoder.encode(word: randomWord)
             
             attempts += 1
             if attempts > PuzzleQueue.MAX_ATTEMPT {

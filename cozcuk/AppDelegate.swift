@@ -5,46 +5,34 @@
 //  Created by Dr. Kerem Koseoglu on 22.06.2022.
 //
 
-#warning("MAIN TODO")
+#warning("MAIN TODO") 
 /*
- DESIGN
-    logo
- GUI
-    apple guideline'ları oku
-    entry screen
-    müzik aç / kapa
-    tutorial - hazır bilmecelerden
-        kırmızıadam = alaçatı
-        saçsızdoğurtucuk = kelebek
-        kelyösi = kedi
-        elyüt = allık
-    gerçek oyun - üretilen bilmecelerden
-    soru yüklenecek (PuzzleQueue)
-    buffer'da soru yoksa "please wait" ekranı, yeterince üretsin
-    soru ekrana havalı gelsin
-    uzun soruların ekrana sığacağından emin ol
-    cevap beklerken soru kıpırdasın
-    ipucu - Puzzle'daki component'lere göre kelimeleri ayır
-    kullanıcı cevap girebilecek
-    cevap kontrolü (AnswerChecker)
-    cevabı gösterme animasyonu (ters dönme vs)
-    ses efektleri
-    güzel background
-    "bilemedim, cevabı göster" butonu
-    launch screen
-    node sayısına dikkat - işi biten node'ları yok et
+ FAZ 5
+    yardım bölümündeki kedi kelimesi patlıyor, dikkat et
  İÇERİK
-    gerçek sözlük yükle
-    gerçek eş anlamlı kelimeleri yükle
+    gerçek sözlük yükle (daha geniş)
     wordencodertest: sözlükten geniş geniş test yapsın
  TEST
-    iphone test
     ipad test
- SALES
-    ilk X bilmece bedava, sonrası parayla gibi olsun
-FINAL
+    farklı beta tester'lar (TestFlight uygulaması var apple'ın)
+ FINAL
     warning kalmasın
-    app'taki node collision vs göstermeyi test mi değil mi haline getir
+ YAYIN
+    küfür içerebilir, ya 18+ yap ya da küfürleri sil
+    app store connect tamamla - https://appstoreconnect.apple.com/apps/1666825486/appstore/ios/version/inflight
+ YAYIN SONRASI
+    web sitesine app store linki ekle
+    kendi kaynaklarına ekle
+        kendi web ana sayfana ekle
+        cv
+        linkedin
+        bio
+    promotion - https://appstoreconnect.apple.com/apps/1666825486/appstore/promotions
+    instagram vs reklamı
+ BACKLOG
+    game center desteği
+    ingilizce versiyon
+    apple custom product page
  */
 
 import UIKit
@@ -57,7 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // AnswerCheckerTest().execute(); exit(0);
+        // SynonymDatabaseTest().testWord(word: "AR", expectedResult: "UTANMA"); exit(0);
+       // WordEncoderTest().execute(); exit(0);
+        
+        InAppPurchaseManager.getInstance().startObserving()
+        
         return true
     }
 
@@ -76,6 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        InAppPurchaseManager.getInstance().stopObserving()
     }
 
 

@@ -14,11 +14,22 @@ struct PuzzleSolutionPart {
 
 struct PuzzleSolution {
     var solutionParts: [PuzzleSolutionPart] = [PuzzleSolutionPart]()
+    
+    public var length: Int {
+        get {
+            var result = 0
+            for part in solutionParts {
+                result += part.decodedWord.count
+            }
+            return result
+        }
+    }
 }
 
 struct Puzzle {
-    var question    : String            = ""
-    var answer      : String            = ""
-    var solution    : PuzzleSolution    = PuzzleSolution()
-    var built       : Bool              = false
+    var question            : String            = ""
+    var answer              : String            = ""
+    var solution            : PuzzleSolution    = PuzzleSolution()
+    var built               : Bool              = false
+    var replacementCount    : Int               = 0
 }

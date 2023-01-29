@@ -8,7 +8,7 @@
 class WordDatabase {
     private static let DB_FILE_NAME : String = "word"
     private static var SINGLETON    : WordDatabase?
-    private var allWords: [String]
+    private var _allWords: [String]
     private var freshWords: [String]
     
     public static func getInstance() throws -> WordDatabase {
@@ -20,8 +20,8 @@ class WordDatabase {
     
     public var freshWordCount: Int {get {return freshWords.count}}
     
-    public func getAllWords() -> [String] {
-        return self.allWords
+    public var allWords: [String] {
+        get {return self._allWords}
     }
     
     public func popRandomWord() -> String {
@@ -33,7 +33,7 @@ class WordDatabase {
     }
     
     private init() throws {
-        self.allWords = [String]()
+        self._allWords = [String]()
         self.freshWords = [String]()
         try loadWords()
         initFreshWords()
@@ -41,11 +41,11 @@ class WordDatabase {
     
     private func loadWords() throws {
         let txtReader = TextFileReader.getInstance()
-        self.allWords    = try txtReader.read(fileName: WordDatabase.DB_FILE_NAME)
+        self._allWords = try txtReader.read(fileName: WordDatabase.DB_FILE_NAME)
     }
     
     private func initFreshWords() {
         self.freshWords = [String]()
-        for word in self.allWords {self.freshWords.append(word)}
+        for word in self._allWords {self.freshWords.append(word)}
     }
 }
