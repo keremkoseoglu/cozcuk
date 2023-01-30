@@ -22,14 +22,14 @@ class TestScene: SKScene {
             // try testPuzzleNode()
             // try testPuzzleHint()
             // try testPanel()
-            // try testPuzzleSolution()
+            try testPuzzleSolution()
             // try testReverseWord()
             // try testReverseWordPartial()
             // try testRotateWord()
             // testPushButton()
             //testShootingStar()
             //testShootingStars()
-            testInAppPurchase()
+            // testInAppPurchase()
             
         } catch {
             print("error")
@@ -103,7 +103,8 @@ class TestScene: SKScene {
     }
     
     private func testPuzzleSolution() throws {
-        let puzzle = try PuzzleQueue.getInstance().getNextPuzzle()
+        // let puzzle = try PuzzleQueue.getInstance().getNextPuzzle()
+        let puzzle = try PuzzleBuilderManager.getInstance().buildRandomPuzzle(word: "KEDİ")
         
         let puzzleNode = PuzzleNode(scene       : self,
                                     puzzle      : puzzle,

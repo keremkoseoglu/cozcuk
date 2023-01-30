@@ -13,8 +13,8 @@ enum VerticalDirection {
 }
 
 class LetterAnimator {
-    public  static  let MOVE_DURATION        : CGFloat   = 1
-    private static  let FADE_DURATION        : CGFloat   = 1
+    public  static  let FADE_DURATION        : CGFloat   = 1
+    private static  let MOVE_DURATION        : CGFloat   = 1
     private static  let DELAY_DURATION       : CGFloat   = 0.05
     private static  var SINGLETON            : LetterAnimator?
     private static  let MOVE_SIZE            : CGFloat   = 10
@@ -32,6 +32,10 @@ class LetterAnimator {
         get {return LetterAnimator.FADE_DURATION + 1}
     }
     
+    public static var introDuration: CGFloat {
+        get {return LetterAnimator.MOVE_DURATION + LetterAnimator.FADE_DURATION}
+    }
+    
     public static func getInstance() -> LetterAnimator {
         if LetterAnimator.SINGLETON == nil {
             LetterAnimator.SINGLETON = LetterAnimator()
@@ -41,6 +45,8 @@ class LetterAnimator {
     }
     
     public func fadeToColor(letter: LetterNode, newColor: LetterButtonColor) {
+        if letter.removed {return}
+        
         // Copy current button
         let oldButtonNode       = letter.buttonNode.copy() as! SKSpriteNode
         oldButtonNode.zPosition = letter.buttonNode.zPosition + 1
@@ -54,12 +60,15 @@ class LetterAnimator {
     }
     
     public func fadeIn(letter: LetterNode) {
+        if letter.removed {return}
+        
         letter.runAction(self.fadeInAction)
     }
     
     public func shiftVertical(letter         : LetterNode,
                               direction      : VerticalDirection,
                               preDelayIndex  : Int = 0) {
+        if letter.removed {return}
         
         let action = buildShiftVerticalAction(letter        : letter,
                                               direction     : direction,
@@ -72,21 +81,26 @@ class LetterAnimator {
                                             newColor         : LetterButtonColor,
                                             direction        : VerticalDirection,
                                             preDelayIndex    : Int = 0) {
-
+        if letter.removed {return}
+        
         fadeToColor(letter: letter, newColor: newColor)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + LetterAnimator.FADE_DURATION, execute: {
-            self.shiftVertical(letter        : letter,
-                               direction     : direction,
-                               preDelayIndex : preDelayIndex)
+            if !letter.removed {
+                self.shiftVertical(letter        : letter,
+                                   direction     : direction,
+                                   preDelayIndex : preDelayIndex)
+            }
         })
     }
     
     public func fadeAndRemove(letter: LetterNode) {
+        if letter.removed {return}
         letter.runAction(self.fadeAndRemoveAction)
     }
     
     public func moveHorizontal(letter: LetterNode, targetX: CGFloat) {
+        if letter.removed {return}
         let moveAction = buildMoveAction(targetX: targetX)
         letter.runAction(moveAction)
     }
@@ -94,7 +108,8 @@ class LetterAnimator {
     public func shiftAndMoveHorizontal(letter           : LetterNode,
                                        targetX          : CGFloat,
                                        firstDirection   : VerticalDirection) {
-
+        if letter.removed {return}
+        
         var move1Size = firstDirection == VerticalDirection.up ?
                           letter.buttonNode.size.height * -1 :
                           letter.buttonNode.size.height
@@ -117,6 +132,8 @@ class LetterAnimator {
     }
     
     public func click(letter: LetterNode) {
+        if letter.removed {return}
+        
         let step1  = SKAction.scale(to      : letter.buttonNode.xScale * 0.5,
                                     duration: TimeInterval(0.04))
         

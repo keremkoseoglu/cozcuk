@@ -28,6 +28,7 @@ class LetterNode: EnableableWidget {
     private var _enabled            : Bool
     private var _enableableNodes    : [SKNode]?
     private var enabler             : WidgetEnabler?
+    private var _removed            : Bool
     
     public static var sampleNode: SKSpriteNode {
         get {
@@ -57,6 +58,7 @@ class LetterNode: EnableableWidget {
         self._letterNode = SKLabelNode(text: self._letter)
         self.textScale   = textScale
         self._enabled    = true
+        self._removed    = false
         self.position    = position
         
         setupButton()
@@ -118,6 +120,8 @@ class LetterNode: EnableableWidget {
         get {return self._enableableNodes!}
     }
     
+    public var removed: Bool {get {return self._removed}}
+    
     public func runAction(_ action: SKAction) {
         runButtonAction(action)
         runTextAction(action)
@@ -137,6 +141,17 @@ class LetterNode: EnableableWidget {
     }
     
     public func removeFromScene() {
+        self._removed = true
+        self.enabled = false
+        
+        /*
+         BU KODLAR; KEDİ PROBLEMİ VARKEN EKLENDİ. GEREK KALMADI.
+         self._buttonNode.removeAllActions()
+        self._buttonNode.removeFromParent()
+        
+        self._letterNode.removeAllActions()
+        self._letterNode.removeFromParent()*/
+        
         LetterNode.lazyBuildFadeOutAction()
         runTextAction(LetterNode.fadeOutAction!)
         runButtonAction(LetterNode.fadeOutAction!)

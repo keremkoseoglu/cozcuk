@@ -49,6 +49,7 @@ class GameScenePuzzleManager {
     }
     
     public func showSolution() {
+        if self.puzzleNode!.wordNode.removed {return}
         self.animator.stop(puzzleNode: self.puzzleNode!, type: .wiggle)
         self.animator.run(puzzleNode: self.puzzleNode!, type: .solution)
     }

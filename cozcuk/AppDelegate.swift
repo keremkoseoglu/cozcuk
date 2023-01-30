@@ -5,36 +5,6 @@
 //  Created by Dr. Kerem Koseoglu on 22.06.2022.
 //
 
-#warning("MAIN TODO") 
-/*
- FAZ 5
-    yardım bölümündeki kedi kelimesi patlıyor, dikkat et
- İÇERİK
-    gerçek sözlük yükle (daha geniş)
-    wordencodertest: sözlükten geniş geniş test yapsın
- TEST
-    ipad test
-    farklı beta tester'lar (TestFlight uygulaması var apple'ın)
- FINAL
-    warning kalmasın
- YAYIN
-    küfür içerebilir, ya 18+ yap ya da küfürleri sil
-    app store connect tamamla - https://appstoreconnect.apple.com/apps/1666825486/appstore/ios/version/inflight
- YAYIN SONRASI
-    web sitesine app store linki ekle
-    kendi kaynaklarına ekle
-        kendi web ana sayfana ekle
-        cv
-        linkedin
-        bio
-    promotion - https://appstoreconnect.apple.com/apps/1666825486/appstore/promotions
-    instagram vs reklamı
- BACKLOG
-    game center desteği
-    ingilizce versiyon
-    apple custom product page
- */
-
 import UIKit
 
 @main

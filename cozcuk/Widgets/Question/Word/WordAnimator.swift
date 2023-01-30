@@ -16,11 +16,17 @@ class WordAnimator {
     }
     
     public func remove(word: WordNode) {
-        let animator = LetterAnimator.getInstance()
+        for letter in word.letterNodes {
+            letter.removeFromScene()
+        }
+        
+        /*
+         aşağıdaki kod, senkron bozuyor. vazgeçtim.
+         let animator = LetterAnimator.getInstance()
         
         for letter in word.letterNodes {
             animator.fadeAndRemove(letter: letter)
-        }
+        }*/
     }
     
     public func fadeIn(word: WordNode) {
@@ -53,7 +59,9 @@ class WordAnimator {
         reverseLettersOfIndex(word: word, index1: index1, index2: index2)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + LetterAnimator.shiftAndMoveHorizontalDuration) {
-            self.reverseLettersOfIndex(word: word, index1: index1, index2: index2)
+            if !word.removed {
+                self.reverseLettersOfIndex(word: word, index1: index1, index2: index2)
+            }
         }
     }
     

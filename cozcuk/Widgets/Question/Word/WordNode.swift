@@ -8,12 +8,13 @@
 import SpriteKit
 
 class WordNode {
-    private var scene        : SKScene
-    private var word         : String
-    private var _letterNodes : [LetterNode]
-    private var position     : CGPoint
-    private var zPosition    : CGFloat
-    private var letterScale  : CGFloat
+    private var scene           : SKScene
+    private var word            : String
+    private var _letterNodes    : [LetterNode]
+    private var position        : CGPoint
+    private var zPosition       : CGFloat
+    private var letterScale     : CGFloat
+    private var _removed        : Bool
     
     init(scene      : SKScene,
          word       : String,
@@ -26,6 +27,7 @@ class WordNode {
         self.position       = position
         self.zPosition      = zPosition
         self.letterScale    = 1
+        self._removed       = false
         
         buildLetterNodes(alpha: animate ? 0 : 1)
         if animate {WordAnimator.getInstance().fadeIn(word: self)}
@@ -35,11 +37,15 @@ class WordNode {
         get {return self._letterNodes}
     }
     
+    public var removed: Bool {get {return self._removed}}
+    
     public func getLetterAtIndex(_ index: Int) -> LetterNode {
         return self._letterNodes[index]
     }
     
     public func removeFromScene() {
+        self._removed = true
+        
         for letterNode in self.letterNodes {
             letterNode.removeFromScene()
         }

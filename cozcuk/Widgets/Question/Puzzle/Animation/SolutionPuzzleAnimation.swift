@@ -27,14 +27,19 @@ class SolutionPuzzleAnimation: PuzzleAnimation {
     func run(puzzleNode: PuzzleNode, options: PuzzleAnimationOptions) {
         buildSolutionNode(puzzleNode: puzzleNode)
         
-        showHint(puzzleNode: puzzleNode)
-        showHint(puzzleNode: self.solutionNode!)
+        self.showHint(puzzleNode: puzzleNode)
+        self.showHint(puzzleNode: self.solutionNode!)
 
         DispatchQueue.main.asyncAfter(
             deadline: .now() + HintPuzzleAnimation.runDuration,
             execute: {
-                self.rotateReverseSolutionWords(puzzleNode: puzzleNode)
-                self.rotateReverseSolutionWords(puzzleNode: self.solutionNode!)
+                if !puzzleNode.wordNode.removed {
+                    self.rotateReverseSolutionWords(puzzleNode: puzzleNode)
+                }
+                
+                if !self.solutionNode!.wordNode.removed {
+                    self.rotateReverseSolutionWords(puzzleNode: self.solutionNode!)
+                }
             })
     }
     
@@ -59,6 +64,8 @@ class SolutionPuzzleAnimation: PuzzleAnimation {
     }
     
     private func showHint(puzzleNode: PuzzleNode) {
+        if puzzleNode.wordNode.removed {return}
+        
         PuzzleAnimator.getInstance().run(puzzleNode : puzzleNode,
                                          type       : .hint,
                                          options    : SolutionPuzzleAnimation.hintOptions)

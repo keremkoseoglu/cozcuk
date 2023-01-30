@@ -29,7 +29,10 @@ class TutorialLabeledPuzzleSlide: Slide {
             self.puzzle = try PuzzleBuilderManager.getInstance().buildRandomPuzzle(word: self.puzzleWord)
             self.gameScenePuzzleManager = GameScenePuzzleManager(scene: scene)
             self.gameScenePuzzleManager!.loadPrebuiltPuzzle(puzzle!)
-            self.gameScenePuzzleManager!.showSolution()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + LetterAnimator.introDuration) {
+                self.gameScenePuzzleManager!.showSolution()
+            }
             
             for solutionPart in self.puzzle!.solution.solutionParts {
                 let solText = "\n" + solutionPart.encodedWord + " - " + solutionPart.decodedWord;
