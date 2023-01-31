@@ -8,10 +8,12 @@
 import SpriteKit
 
 class TestScene: SKScene {
+    public  var currentView     : SKView?
+    
     public static func moveToView(_ view: SKView) {
         let scene = TestScene(fileNamed: "TestScene")
-        scene!.scaleMode = .aspectFill
-        view.presentScene(scene)
+        scene!.currentView = view
+        scene?.cozcukShowInView(view)
     }
     
     override func didMove(to view: SKView) {

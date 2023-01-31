@@ -104,8 +104,8 @@ class GameViewController: UIViewController {
             if container.erasePurchaseFlags {InAppPurchaseManager.getInstance().purchasedFlagInDatabase = false}
             
             //TestScene.moveToView(view)
-            GameScene.moveToView(view)
-            //WelcomeScene.moveToView(view)
+            //GameScene.moveToView(view)
+            WelcomeScene.moveToView(view)
             //TutorialScene.moveToView(view)
             //StatsScene.moveToView(view)
 
