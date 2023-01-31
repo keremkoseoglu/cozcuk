@@ -36,7 +36,7 @@ class HintPuzzleAnimation: PuzzleAnimation {
     func stop(puzzleNode: PuzzleNode) {}
     
     func removeFromParent() {
-        #warning("remove from parent") 
+        self.puzzleNode?.wordNode.removeFromScene()
     }
     
     private func animateLetters() {

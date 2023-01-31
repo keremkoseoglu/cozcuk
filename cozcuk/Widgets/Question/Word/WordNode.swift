@@ -44,6 +44,7 @@ class WordNode {
     }
     
     public func removeFromScene() {
+        if self._removed {return}
         self._removed = true
         
         for letterNode in self.letterNodes {

@@ -36,7 +36,7 @@ class WigglePuzzleAnimation: PuzzleAnimation {
     }
     
     func removeFromParent() {
-        #warning("remove from parent")
+        self.puzzleNode?.wordNode.removeFromScene()
     }
     
     @objc

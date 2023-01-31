@@ -141,6 +141,7 @@ class LetterNode: EnableableWidget {
     }
     
     public func removeFromScene() {
+        if self._removed {return}
         self._removed = true
         self.enabled = false
         

@@ -30,6 +30,6 @@ class LoadPuzzleAnimation: PuzzleAnimation {
     func stop(puzzleNode: PuzzleNode) {}
     
     func removeFromParent() {
-        #warning("remove from parent")
+        // Nothing to do at this time
     }
 }

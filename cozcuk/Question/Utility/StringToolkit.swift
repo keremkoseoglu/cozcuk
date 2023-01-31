@@ -14,7 +14,6 @@ class StringToolkit {
     }
     
     public func substring(word: String, from: Int, to: Int) -> String {
-        #warning("string toolkit defensive programming")
          let start  = word.index(word.startIndex, offsetBy: from)
          let end    = word.index(word.startIndex, offsetBy: to)
          let range  = start...end
