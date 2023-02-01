@@ -24,6 +24,7 @@ struct GameRunModeContainer {
     var erasePurchaseFlags      : Bool
     var puzzlesBeforeReview     : Int
     var eraseReviewRequested    : Bool
+    var infiniteFreeUsage       : Bool
 }
 
 class GameRunModeManager {
@@ -53,35 +54,40 @@ class GameRunModeManager {
                                             tutorialTitle       : "Yardım",
                                             erasePurchaseFlags  : false,
                                             puzzlesBeforeReview : 10,
-                                            eraseReviewRequested: false)
+                                            eraseReviewRequested: false,
+                                            infiniteFreeUsage   : true)
             case .IN_APP_PURCHASE_TEST:
                 return GameRunModeContainer(showsFPS            : true,
                                             showsNodeCount      : true,
                                             tutorialTitle       : "Yardım",
                                             erasePurchaseFlags  : true,
                                             puzzlesBeforeReview : 10,
-                                            eraseReviewRequested: false)
+                                            eraseReviewRequested: false,
+                                            infiniteFreeUsage   : false)
             case .REQUEST_REVIEW_TEST:
                 return GameRunModeContainer(showsFPS            : true,
                                             showsNodeCount      : true,
                                             tutorialTitle       : "Yardım",
                                             erasePurchaseFlags  : false,
                                             puzzlesBeforeReview : 3,
-                                            eraseReviewRequested: true)
+                                            eraseReviewRequested: true,
+                                            infiniteFreeUsage   : false)
             case .LIVE:
                 return GameRunModeContainer(showsFPS            : false,
                                             showsNodeCount      : false,
                                             tutorialTitle       : "Yardım",
                                             erasePurchaseFlags  : false,
                                             puzzlesBeforeReview : 50,
-                                            eraseReviewRequested: false)
+                                            eraseReviewRequested: false,
+                                            infiniteFreeUsage   : false)
             case .SCREENSHOT:
                 return GameRunModeContainer(showsFPS            : false,
                                             showsNodeCount      : false,
                                             tutorialTitle       : "Çözcük",
                                             erasePurchaseFlags  : false,
                                             puzzlesBeforeReview : 50,
-                                            eraseReviewRequested: false)
+                                            eraseReviewRequested: false,
+                                            infiniteFreeUsage   : false)
             }
         }
     }

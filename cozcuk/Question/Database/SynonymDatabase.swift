@@ -10,7 +10,7 @@ class SynonymDatabase {
     private static let DB_FILE_NAME                         : String    = "synonym"
     private static let SEPARATOR                            : String    = ";"
     private static let MIN_WORD_LENGTH                      : Int       = 2
-    private static let SHORT_WORD_LENGTH_DIFF_TOLERANCE     : Int       = 4
+    private static let SHORT_WORD_LENGTH_DIFF_TOLERANCE     : Int       = 3
     private static var SINGLETON                            : SynonymDatabase?
     
     private var synonyms: [String: [String]]

@@ -46,11 +46,14 @@ class InAppPurchaseManager: NSObject, SKProductsRequestDelegate, SKRequestDelega
     public var onReceiveProductsHandler: ((Result<[SKProduct], InAppPurchaseManagerError>) -> Void)?
     
     public var freeUsageOver: Bool {
-        get {return self.db.getStatistic(type: .hintGiveUpClickCount).value > InAppPurchaseManager.FREE_HINT_SOLUTION_COUNT}
+        get {
+            if GameRunModeManager.getInstance().container.infiniteFreeUsage {return false}
+            return self.db.getStatistic(type: .hintGiveUpClickCount).value > InAppPurchaseManager.FREE_HINT_SOLUTION_COUNT}
     }
     
     public var purchaseNeeded: Bool {
         get {
+            if GameRunModeManager.getInstance().container.infiniteFreeUsage {return false}
             if !self.freeUsageOver {return false}
             if self.purchasedFlagInDatabase {return false}
             return true
@@ -63,6 +66,7 @@ class InAppPurchaseManager: NSObject, SKProductsRequestDelegate, SKRequestDelega
     
     public var purchasedFlagInDatabase: Bool {
         get {
+            if GameRunModeManager.getInstance().container.infiniteFreeUsage {return true}
             return self.db.getBool(InAppPurchaseManager.DB_NAME)
         }
         set(newVal) {
