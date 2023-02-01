@@ -21,6 +21,7 @@ class TutorialScene: SKScene {
     }
     
     override func didMove(to view:SKView) {
+        SynonymHistory.getInstance().active = false
         self.plaque         = WelcomePlaque(scene: self, zPosition: 9, text: GameRunModeManager.getInstance().container.tutorialTitle)
         
         self.observer       = TutorialSceneObserver(tutorialScene: self)

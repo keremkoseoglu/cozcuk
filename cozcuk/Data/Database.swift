@@ -55,6 +55,14 @@ class Database {
         UserDefaults.standard.set(val, forKey: key)
     }
     
+    public func getStringArray(_ name: String) -> [String] {
+        return UserDefaults.standard.stringArray(forKey: name) ?? [String]()
+    }
+    
+    public func setStringArray(_ name: String, value: [String]) {
+        UserDefaults.standard.set(value, forKey: name)
+    }
+    
     private init() {}
     
     private func buildStatKey(type: StatisticType) -> String {

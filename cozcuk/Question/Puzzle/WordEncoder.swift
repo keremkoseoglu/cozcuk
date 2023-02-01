@@ -30,6 +30,11 @@ class WordEncoder {
         if puzzle.answer.contains("Â") {return false}
         if puzzle.replacementCount < 2 {return false}
         if puzzle.question == puzzle.answer {return false}
+        
+        if SynonymHistory.getInstance().puzzleContainsRecentSynonyms(puzzle) {
+            return false
+        }
+        
         return true
     }
     

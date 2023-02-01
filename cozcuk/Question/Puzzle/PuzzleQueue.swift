@@ -5,7 +5,6 @@
 //  Created by Dr. Kerem Koseoglu on 24.06.2022.
 //
 
-
 enum PuzzleQueueError: Error {
     case tooManyRandomWordAttempts
     case noPuzzleGenerated
@@ -60,8 +59,10 @@ class PuzzleQueue {
     }
     
     private func generateRandomPuzzle() throws -> Puzzle {
-        var result = Puzzle()
-        var attempts: Int = 0
+        let synonymHistory          = SynonymHistory.getInstance()
+        var result                  = Puzzle()
+        var attempts        : Int   = 0
+        var historyCleared  : Bool  = false
         
         while !result.built {
             let randomWord  = self.wordDB.popRandomWord()
@@ -69,10 +70,18 @@ class PuzzleQueue {
             
             attempts += 1
             if attempts > PuzzleQueue.MAX_ATTEMPT {
+                if !historyCleared {
+                    synonymHistory.clearHistory()
+                    historyCleared = true
+                    attempts = 0
+                    continue
+                }
+                
                 throw PuzzleQueueError.tooManyRandomWordAttempts
             }
         }
         
+        synonymHistory.recordPuzzleSynonyms(result)
         return result
     }
     

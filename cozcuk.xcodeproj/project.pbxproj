@@ -69,6 +69,7 @@
 		0C4BA67328A91367009BD983 /* WordAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BA67228A91367009BD983 /* WordAnimator.swift */; };
 		0C4BA67628A914F2009BD983 /* PuzzleAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4BA67528A914F2009BD983 /* PuzzleAnimator.swift */; };
 		0C4F6C992986E54000B490BA /* RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4F6C982986E54000B490BA /* RequestReview.swift */; };
+		0C4F6C9B298AC1CF00B490BA /* SynonymHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4F6C9A298AC1CF00B490BA /* SynonymHistory.swift */; };
 		0C55E850286444DE008B24DA /* synonym.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0C55E84F286444DE008B24DA /* synonym.txt */; };
 		0C55E85328644571008B24DA /* SynonymDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E85228644571008B24DA /* SynonymDatabase.swift */; };
 		0C55E86A28649538008B24DA /* SynonymDatabaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C55E86928649538008B24DA /* SynonymDatabaseTest.swift */; };
@@ -214,6 +215,7 @@
 		0C4BA67228A91367009BD983 /* WordAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordAnimator.swift; sourceTree = "<group>"; };
 		0C4BA67528A914F2009BD983 /* PuzzleAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleAnimator.swift; sourceTree = "<group>"; };
 		0C4F6C982986E54000B490BA /* RequestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestReview.swift; path = ../../../../../../../RequestReview.swift; sourceTree = "<group>"; };
+		0C4F6C9A298AC1CF00B490BA /* SynonymHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynonymHistory.swift; sourceTree = "<group>"; };
 		0C55E84F286444DE008B24DA /* synonym.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synonym.txt; sourceTree = "<group>"; };
 		0C55E85228644571008B24DA /* SynonymDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynonymDatabase.swift; sourceTree = "<group>"; };
 		0C55E86928649538008B24DA /* SynonymDatabaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynonymDatabaseTest.swift; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 				0C55E883286505A0008B24DA /* FlexibleSynonym.swift */,
 				0C55E85228644571008B24DA /* SynonymDatabase.swift */,
 				0C55E8712864A5ED008B24DA /* WordDatabase.swift */,
+				0C4F6C9A298AC1CF00B490BA /* SynonymHistory.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -1002,6 +1005,7 @@
 				0C9AA44A292115C8001F2156 /* HorizontalPuzzleBuilder.swift in Sources */,
 				0C9F5C4D28BE894200DFBAA2 /* WigglePuzzleAnimation.swift in Sources */,
 				0CB2FDE7296C733900C55724 /* Enablement.swift in Sources */,
+				0C4F6C9B298AC1CF00B490BA /* SynonymHistory.swift in Sources */,
 				0C99BDE828637E8D002230EE /* AppDelegate.swift in Sources */,
 				0CF995AC28BCD49E00942C14 /* WelcomePanelButtons.swift in Sources */,
 				0C25A4DA28B4FDF000D7EC45 /* GameScenePuzzleManager.swift in Sources */,

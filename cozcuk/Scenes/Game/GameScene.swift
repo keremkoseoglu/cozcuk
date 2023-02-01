@@ -22,6 +22,7 @@ class GameScene: SKScene {
     }
     
     override func didMove(to view: SKView) {
+        SynonymHistory.getInstance().active = true
         self.observer   = GameSceneObserver(gameScene: self)
         self.scenery    = GameScenery(scene: self)
         self.panel      = GamePanel(scene       : self,
