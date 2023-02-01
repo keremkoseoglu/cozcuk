@@ -17,13 +17,14 @@ enum SoundEffect {
 }
 
 class AudioManager {
-    private static let DB_NAME: String = "SOUND_ON"
-    private static var SINGLETON: AudioManager?
-    private var _soundIsOn: Bool
-    private var playRight: SKAction
-    private var playSnap: SKAction
-    private var playSpell: SKAction
-    private var playWrong: SKAction
+    private static  let DB_NAME                 : String = "SOUND_ON"
+    private static  let WAIT_FOR_COMPLETION     : Bool  = false
+    private static  var SINGLETON               : AudioManager?
+    private         var _soundIsOn              : Bool
+    private         var playRight               : SKAction
+    private         var playSnap                : SKAction
+    private         var playSpell               : SKAction
+    private         var playWrong               : SKAction
     
     public static func getInstance() -> AudioManager {
         if AudioManager.SINGLETON == nil {
@@ -59,10 +60,10 @@ class AudioManager {
     }
     
     private init() {
-        self._soundIsOn = Database.getInstance().getBool(AudioManager.DB_NAME)
-        self.playRight = SKAction.playSoundFileNamed("right.wav", waitForCompletion: false)
-        self.playSnap = SKAction.playSoundFileNamed("snap.wav", waitForCompletion: false)
-        self.playSpell = SKAction.playSoundFileNamed("spell.wav", waitForCompletion: false)
-        self.playWrong = SKAction.playSoundFileNamed("wrong.wav", waitForCompletion: false)
+        self._soundIsOn     = Database.getInstance().getBool(AudioManager.DB_NAME)
+        self.playRight      = SKAction.playSoundFileNamed("right.wav"       , waitForCompletion: AudioManager.WAIT_FOR_COMPLETION)
+        self.playSnap       = SKAction.playSoundFileNamed("snap.wav"        , waitForCompletion: AudioManager.WAIT_FOR_COMPLETION)
+        self.playSpell      = SKAction.playSoundFileNamed("spell.wav"       , waitForCompletion: AudioManager.WAIT_FOR_COMPLETION)
+        self.playWrong      = SKAction.playSoundFileNamed("wrong.wav"       , waitForCompletion: AudioManager.WAIT_FOR_COMPLETION)
     }
 }
