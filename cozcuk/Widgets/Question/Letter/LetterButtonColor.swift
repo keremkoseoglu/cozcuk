@@ -48,7 +48,9 @@ enum LetterButtonColor {
         case 1  : return LetterButtonColor.grey
         case 2  : return LetterButtonColor.pink
         case 3  : return LetterButtonColor.violet
-        default : assert(false, "Invalid color index")
+        default :
+            assert(false, "Invalid color index")
+            return .blue
         }
     }
     
