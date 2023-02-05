@@ -26,8 +26,7 @@ extension InAppPurchaseManagerError: LocalizedError {
 }
 
 class InAppPurchaseManager: NSObject, SKProductsRequestDelegate, SKRequestDelegate {
-    
-    public  static let FREE_HINT_SOLUTION_COUNT = 10
+    public  static let FREE_HINT_SOLUTION_COUNT = 25
     
     public var onBuyProductHandler: ((Result<Bool, Error>) -> Void)?
     

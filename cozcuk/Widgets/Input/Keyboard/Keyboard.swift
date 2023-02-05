@@ -15,9 +15,13 @@ protocol KeyboardButtonsObserver {
     func keyboardButtonClicked(_ button: KeyboardButton)
 }
 
-class Keyboard {
-    public  static  let DELETE_BUTTON_TEXT      : String   = "Sil"
+
+class Keyboard: ColorSchemeObserver {
+    public  static  let DELETE_BUTTON_TEXT      : String   = "Temizle"
     public  static  let GUESS_BUTTON_TEXT       : String   = "Gönder"
+    private static  let PUSH_BUTTON_IMG_SCL_DIV : CGFloat  = 1.1
+    private static  let PUSH_BUTTON_TXT_SCL_DIV : CGFloat  = 1.6
+    private static  let PUSH_BUTTON_TXT_MAR_SCL : CGFloat  = 1.25
     
     private static  let KEY_ROWS                : [String] = ["QWERTYUIOPĞÜ",
                                                               "ASDFGHJKLŞİ",
@@ -40,7 +44,7 @@ class Keyboard {
     private         var _screenText             : String
     private         var backspaceButton         : PushButton?
     private         var answerRelatedButtons    : [PushButton?]?
-    
+    private         var colorScheme             : ColorSchemeManager
     
     public init(scene       : SKScene,
                 position    : CGPoint,
@@ -54,11 +58,14 @@ class Keyboard {
         self.yCursor        = self.position.y
         self.observer       = observer
         self._screenText    = ""
+        self.colorScheme    = ColorSchemeManager.getInstance()
         
         calculateScale()
         buildMonitor()
         buildKeyboard()
         buildButtons()
+        
+        self.colorScheme.addObserver(self)
     }
     
     public var screenText: String {
@@ -119,6 +126,10 @@ class Keyboard {
         }
     }
     
+    public func colorSchemeChanged(uiStyle: UIUserInterfaceStyle) {
+        setMonitorColor()
+    }
+    
     private static var longestKeyRowCount: Int {
         get {
             if Keyboard._LONGEST_KEY_ROW_COUNT == nil {
@@ -159,10 +170,9 @@ class Keyboard {
                                                 height  : height),
                                    cornerRadius: 2)
         
-        self.monitor!.fillColor      = .gray
         self.monitor!.glowWidth      = 1
         self.monitor!.alpha          = 1
-        
+        setMonitorColor()
         self.scene.addChild(self.monitor!)
         
         
@@ -213,7 +223,7 @@ class Keyboard {
         let btnWidth = Keyboard.PUSH_BUTTON_SHAPE.size.width
         
         self.delButton =
-            createPushButton(color  : .orange,
+            createPushButton(color  : .green,
                              text   : Keyboard.DELETE_BUTTON_TEXT,
                              x      : 0 - (btnWidth / 2 * self.scale),
                              y      : self.yCursor)
@@ -264,9 +274,9 @@ class Keyboard {
                           text              : text,
                           zPosition         : self.zPosition,
                           position          : CGPoint(x: x, y: y),
-                          imageScale        : self.scale / 1.2,
-                          textScale         : self.scale / 1.8,
-                          textMarginScale   : 1.25)
+                          imageScale        : self.scale / Keyboard.PUSH_BUTTON_IMG_SCL_DIV,
+                          textScale         : self.scale / Keyboard.PUSH_BUTTON_TXT_SCL_DIV,
+                          textMarginScale   : Keyboard.PUSH_BUTTON_TXT_MAR_SCL)
     }
     
     private func updateMonitorText() {
@@ -277,5 +287,16 @@ class Keyboard {
         for button in self.answerRelatedButtons! {button!.enabled = enabled}
         
         for letter in self.letterKeys {letter.enabled = enabled}
+    }
+    
+    private func setMonitorColor() {
+        switch self.colorScheme.userInterfaceStyle {
+        case .light:
+            self.monitor?.strokeColor = .black
+            self.monitor!.fillColor   = .lightGray
+        default:
+            self.monitor?.strokeColor = .white
+            self.monitor!.fillColor   = .gray
+        }
     }
 }

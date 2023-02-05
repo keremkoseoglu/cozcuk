@@ -9,115 +9,24 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-enum GameRunMode {
-    case TEST
-    case IN_APP_PURCHASE_TEST
-    case REQUEST_REVIEW_TEST
-    case SCREENSHOT
-    case LIVE
-}
-
-struct GameRunModeContainer {
-    var showsFPS                : Bool
-    var showsNodeCount          : Bool
-    var tutorialTitle           : String
-    var erasePurchaseFlags      : Bool
-    var puzzlesBeforeReview     : Int
-    var eraseReviewRequested    : Bool
-    var infiniteFreeUsage       : Bool
-}
-
-class GameRunModeManager {
-    public  static  let DEFAULT_TUTORIAL_TITLE  : String = "Yardım"
-    private static  var SINGLETON               : GameRunModeManager?
-    private         var _gameRunMode            : GameRunMode
-    
-    public static func getInstance() -> GameRunModeManager {
-        if GameRunModeManager.SINGLETON == nil {
-            GameRunModeManager.SINGLETON = GameRunModeManager()
-        }
-        
-        return GameRunModeManager.SINGLETON!
-    }
-    
-    public var gameRunMode: GameRunMode {
-        get { return self._gameRunMode }
-        set(newMode) {self._gameRunMode = newMode}
-    }
-    
-    public var container: GameRunModeContainer {
-        get {
-            switch (self._gameRunMode) {
-            case .TEST:
-                return GameRunModeContainer(showsFPS            : true,
-                                            showsNodeCount      : true,
-                                            tutorialTitle       : "Yardım",
-                                            erasePurchaseFlags  : false,
-                                            puzzlesBeforeReview : 10,
-                                            eraseReviewRequested: false,
-                                            infiniteFreeUsage   : true)
-            case .IN_APP_PURCHASE_TEST:
-                return GameRunModeContainer(showsFPS            : true,
-                                            showsNodeCount      : true,
-                                            tutorialTitle       : "Yardım",
-                                            erasePurchaseFlags  : true,
-                                            puzzlesBeforeReview : 10,
-                                            eraseReviewRequested: false,
-                                            infiniteFreeUsage   : false)
-            case .REQUEST_REVIEW_TEST:
-                return GameRunModeContainer(showsFPS            : true,
-                                            showsNodeCount      : true,
-                                            tutorialTitle       : "Yardım",
-                                            erasePurchaseFlags  : false,
-                                            puzzlesBeforeReview : 3,
-                                            eraseReviewRequested: true,
-                                            infiniteFreeUsage   : false)
-            case .LIVE:
-                return GameRunModeContainer(showsFPS            : false,
-                                            showsNodeCount      : false,
-                                            tutorialTitle       : "Yardım",
-                                            erasePurchaseFlags  : false,
-                                            puzzlesBeforeReview : 50,
-                                            eraseReviewRequested: false,
-                                            infiniteFreeUsage   : false)
-            case .SCREENSHOT:
-                return GameRunModeContainer(showsFPS            : false,
-                                            showsNodeCount      : false,
-                                            tutorialTitle       : "Çözcük",
-                                            erasePurchaseFlags  : false,
-                                            puzzlesBeforeReview : 50,
-                                            eraseReviewRequested: false,
-                                            infiniteFreeUsage   : false)
-            }
-        }
-    }
-    
-    private init() {
-        self._gameRunMode = .TEST
-    }
-}
-
+#warning("game view controller startup") /*
+moveToView protocol olsun
+    stats scene
+game starter diye bir sınıf yap
+game view controller oraya gitsin
+*/
 
 class GameViewController: UIViewController {
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            let gameRunModeManager = GameRunModeManager.getInstance()
-            gameRunModeManager.gameRunMode = .LIVE
-            let container = gameRunModeManager.container
-            
-            if container.erasePurchaseFlags {InAppPurchaseManager.getInstance().purchasedFlagInDatabase = false}
-            
-            //TestScene.moveToView(view)
-            //GameScene.moveToView(view)
-            WelcomeScene.moveToView(view)
-            //TutorialScene.moveToView(view)
-            //StatsScene.moveToView(view)
-
-            view.ignoresSiblingOrder    = true
-            view.showsFPS               = container.showsFPS
-            view.showsNodeCount         = container.showsNodeCount
+            #warning("run mode live olacak")
+            startGame(scene     : WelcomeScene.self,
+                      runMode   : .TEST,
+                      view      : view)
         }
     }
 
@@ -139,5 +48,24 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        ColorSchemeManager.getInstance().userInterfaceStyleChanged()
+    }
 
+    private func startGame(scene: CozcukScene.Type, runMode: GameRunMode, view: SKView) {
+        ColorSchemeManager.initialize(viewController: self)
+        
+        let gameRunModeManager = GameRunModeManager.getInstance()
+        gameRunModeManager.gameRunMode = runMode
+        let container = gameRunModeManager.container
+        
+        if container.erasePurchaseFlags {InAppPurchaseManager.getInstance().purchasedFlagInDatabase = false}
+        
+        scene.moveToView(view)
+
+        view.ignoresSiblingOrder    = true
+        view.showsFPS               = container.showsFPS
+        view.showsNodeCount         = container.showsNodeCount
+    }
 }

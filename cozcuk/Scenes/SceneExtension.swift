@@ -7,6 +7,10 @@
 
 import SpriteKit
 
+protocol CozcukScene {
+    static func moveToView(_ view: SKView)
+}
+
 extension SKScene {
     public  static  let COZCUK_WIDTH  : CGFloat   = 750
     public  static  let COZCUK_HEIGHT : CGFloat   = 1334

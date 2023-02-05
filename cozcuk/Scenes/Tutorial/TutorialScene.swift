@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class TutorialScene: SKScene {
+class TutorialScene: SKScene, CozcukScene {
     public  var panel           : TutorialPanel?
     public  var currentView     : SKView?
     private var scenery         : GameScenery?

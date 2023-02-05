@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class StatsScene: SKScene {
+class StatsScene: SKScene, CozcukScene {
     public  var currentView     : SKView?
     public  var panel           : StatsPanel?
     

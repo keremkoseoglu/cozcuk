@@ -8,10 +8,11 @@
 import UIKit
 
 class HapticsManager {
-    private static var SINGLETON: HapticsManager?
-    private var impactGenerator: UIImpactFeedbackGenerator
-    private var selectionGenerator: UISelectionFeedbackGenerator
-    private var notificationGenerator: UINotificationFeedbackGenerator
+    private static var SINGLETON        : HapticsManager?
+    private var impactGenerator         : UIImpactFeedbackGenerator
+    private var selectionGenerator      : UISelectionFeedbackGenerator
+    private var notificationGenerator   : UINotificationFeedbackGenerator
+    private var audioManager            : AudioManager
     
     public static func getInstance() -> HapticsManager {
         if HapticsManager.SINGLETON == nil {
@@ -22,9 +23,7 @@ class HapticsManager {
     }
     
     public var hapticsActive: Bool {
-        get {
-            return AudioManager.getInstance().soundIsOn
-        }
+        get {return self.audioManager.soundIsOn}
     }
     
     public func impact() {
@@ -52,9 +51,10 @@ class HapticsManager {
     }
     
     private init() {
-        self.impactGenerator = UIImpactFeedbackGenerator()
-        self.selectionGenerator = UISelectionFeedbackGenerator()
-        self.notificationGenerator = UINotificationFeedbackGenerator()
+        self.impactGenerator        = UIImpactFeedbackGenerator()
+        self.selectionGenerator     = UISelectionFeedbackGenerator()
+        self.notificationGenerator  = UINotificationFeedbackGenerator()
+        self.audioManager           = AudioManager.getInstance()
         
         self.impactGenerator.prepare()
         self.selectionGenerator.prepare()

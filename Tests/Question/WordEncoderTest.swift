@@ -66,7 +66,7 @@ class WordEncoderTest {
             if resultCount >= count {return}
         }
         
-        for _ in 0...count-1 {try encodeAndPrint(wordDB.popRandomWord())}
+        //for _ in 0...count-1 {try encodeAndPrint(wordDB.popRandomWord())}
     }
     
     private func encodeAndPrint(_ word: String) throws {

@@ -8,7 +8,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, CozcukScene {
     public  var puzzleManager   : GameScenePuzzleManager?
     public  var panel           : GamePanel?
     public  var currentView     : SKView?

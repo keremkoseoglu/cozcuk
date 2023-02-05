@@ -7,27 +7,30 @@
 
 import SpriteKit
 
-class StatsPanel {
+class StatsPanel: ColorSchemeObserver {
     private var scene       : SKScene
     private var zPosition   : CGFloat
     private var db          : Database
     private var plaque      : WelcomePlaque
     private var buttons     : DoubleFooterButtons
     private var statLabel   : SKLabelNode?
+    private var colorScheme : ColorSchemeManager
     
     init(scene: SKScene, zPosition: CGFloat = 1, observer: DoubleFooterButtonsObserver?) {
-        self.scene      = scene
-        self.zPosition  = zPosition
-        self.db         = Database.getInstance()
-        self.plaque     = WelcomePlaque(scene: scene, zPosition: 9, text: WelcomePanelButtonFactory.STAT_TEXT)
+        self.scene          = scene
+        self.zPosition      = zPosition
+        self.db             = Database.getInstance()
+        self.plaque         = WelcomePlaque(scene: scene, zPosition: 9, text: WelcomePanelButtonFactory.STAT_TEXT)
         
-        self.buttons    = DoubleFooterButtons(scene: scene,
-                                              zPosition: zPosition + 1,
-                                              leftText: "Çıkış",
-                                              rightText: "Sıfırla",
-                                              observer: observer)
+        self.buttons        = DoubleFooterButtons(scene: scene,
+                                                  zPosition: zPosition + 1,
+                                                  leftText: "Çıkış",
+                                                  rightText: "Sıfırla",
+                                                  observer: observer)
         
+        self.colorScheme    = ColorSchemeManager.getInstance()
         self.setupStatLabel()
+        self.colorScheme.addObserver(self)
     }
     
     public func touchesBegan(_ touches: Set<UITouch>) {
@@ -44,13 +47,17 @@ class StatsPanel {
         appendStatTypeToStatLabel(.gaveUpPuzzleCount)
     }
     
+    public func colorSchemeChanged(uiStyle: UIUserInterfaceStyle) {
+        setStatLabelColor()
+    }
     
     private func setupStatLabel() {
         self.statLabel                          = SKLabelNode(text: "")
         self.statLabel!.zPosition               = self.zPosition
         self.statLabel!.position                = CGPoint(x: 0, y: 0)
         self.statLabel!.horizontalAlignmentMode = .center
-        self.statLabel!.verticalAlignmentMode = .center
+        self.statLabel!.verticalAlignmentMode   = .center
+        setStatLabelColor()
         self.scene.addChild(self.statLabel!)
         self.putFreshStatsIntoStatLabel()
     }
@@ -69,5 +76,14 @@ class StatsPanel {
         if icon != "" {self.statLabel!.text! += icon + " "}
         self.statLabel!.text! += text
         self.statLabel!.numberOfLines += 1
+    }
+    
+    private func setStatLabelColor() {
+        switch self.colorScheme.userInterfaceStyle {
+        case .light:
+            self.statLabel?.fontColor = .black
+        default:
+            self.statLabel?.fontColor = .white
+        }
     }
 }

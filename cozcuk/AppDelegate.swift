@@ -5,6 +5,30 @@
 //  Created by Dr. Kerem Koseoglu on 22.06.2022.
 //
 
+#warning("feedbacks") /*
+OYUN
+    İpucu 9 kelime ekranda asılı kalabilir
+YARDIM
+    oyun doğrudan yardım bölümüyle açılsın
+    bir kez yardımla açıldıysa, artık bir daha yardımla açılmasın
+    yardım bölümü daha net olsun
+        aşağıdaki senaryoları içerecek şekilde tasarla
+            ters dönme mantığı anlaşılmamış
+            cevabın her zaman tek kelime olduğu net söylensin
+            eş anlamlı değil, yakın anlamlı kelime diyelim
+            tam bir ekran gösterip, orada ipucu ve cevapları göstermek?
+            ses butonu ile ses açıp kapatmayı da göster
+        tasarımı uygula
+IN-APP PURCHASE
+    başta kolay başlasın, biraz sarsın, sonra ipucuna ihtiyaç duyacak kadar (biraz) zorlaşsın ve bam 5 lira iste
+    satın almamış biri için test: İpucu hakkım bitti. Zaten almıştıma bastım  tekrar verdi. Beta olduğu için mi
+DEPLOY
+    başka feedback var mı?
+    warning kalmasın
+    yeni versiyon yolla
+    feedback iste
+*/
+
 import UIKit
 
 @main

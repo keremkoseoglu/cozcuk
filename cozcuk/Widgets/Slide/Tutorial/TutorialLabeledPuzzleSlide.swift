@@ -7,18 +7,21 @@
 
 import SpriteKit
 
-class TutorialLabeledPuzzleSlide: Slide {
+class TutorialLabeledPuzzleSlide: Slide, ColorSchemeObserver {
     private static var LABEL_TOP        : CGFloat = 300
     private var labelIntro              : String
     private var puzzleWord              : String
     private var puzzle                  : Puzzle?
     private var gameScenePuzzleManager  : GameScenePuzzleManager?
     private var puzzleLabel             : SKLabelNode?
+    private var colorScheme             : ColorSchemeManager
     
     
     init(labelIntro: String, puzzleWord: String) {
-        self.labelIntro = labelIntro
-        self.puzzleWord = puzzleWord
+        self.labelIntro     = labelIntro
+        self.puzzleWord     = puzzleWord
+        self.colorScheme    = ColorSchemeManager.getInstance()
+        self.colorScheme.addObserver(self)
     }
     
     func putToScene(scene: SKScene, zPosition: CGFloat) {
@@ -44,12 +47,13 @@ class TutorialLabeledPuzzleSlide: Slide {
         
         let labelY = TutorialLabeledPuzzleSlide.LABEL_TOP * -1 * scene.cozcukScaleY
         
-        self.puzzleLabel = SKLabelNode(text: labelText)
-        self.puzzleLabel!.numberOfLines = numberOfLines
-        self.puzzleLabel!.lineBreakMode = .byWordWrapping
-        self.puzzleLabel!.position  = CGPoint(x: 0, y: labelY)
-        self.puzzleLabel!.zPosition = zPosition
+        self.puzzleLabel                        = SKLabelNode(text: labelText)
+        self.puzzleLabel!.numberOfLines         = numberOfLines
+        self.puzzleLabel!.lineBreakMode         = .byWordWrapping
+        self.puzzleLabel!.position              = CGPoint(x: 0, y: labelY)
+        self.puzzleLabel!.zPosition             = zPosition
         self.puzzleLabel!.verticalAlignmentMode = .bottom
+        setPuzzleLabelColor()
         scene.addChild(self.puzzleLabel!)
     }
     
@@ -57,6 +61,19 @@ class TutorialLabeledPuzzleSlide: Slide {
         self.gameScenePuzzleManager?.puzzleNode?.wordNode.removeFromScene()
         PuzzleAnimator.getInstance().removeAnimationsFromParent()
         self.puzzleLabel?.removeFromParent()
+    }
+    
+    public func colorSchemeChanged(uiStyle: UIUserInterfaceStyle) {
+        setPuzzleLabelColor()
+    }
+    
+    private func setPuzzleLabelColor() {
+        switch self.colorScheme.userInterfaceStyle {
+        case .light:
+            self.puzzleLabel?.fontColor = .black
+        default:
+            self.puzzleLabel?.fontColor = .white
+        }
     }
     
     

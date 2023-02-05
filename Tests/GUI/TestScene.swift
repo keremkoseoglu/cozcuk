@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class TestScene: SKScene {
+class TestScene: SKScene, CozcukScene {
     public  var currentView     : SKView?
     
     public static func moveToView(_ view: SKView) {
