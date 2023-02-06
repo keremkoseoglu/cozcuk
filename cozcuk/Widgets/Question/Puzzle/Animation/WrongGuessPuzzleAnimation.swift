@@ -30,7 +30,7 @@ class WrongGuessPuzzleAnimation: PuzzleAnimation {
         FeedbackManager.getInstance().wrongAnswer(scene: puzzleNode.scene)
         
         self.wrongLabel = SKLabelNode(text: "Yanlış")
-        self.wrongLabel!.position = CGPoint(x: 0, y: 0)
+        self.wrongLabel!.position = CGPoint(x: 0, y: -100 * puzzleNode.scene.cozcukScaleY) // Ekranda Hint varsa çakışmasın
         self.wrongLabel!.zPosition = 99
         puzzleNode.scene.addChild(self.wrongLabel!)
         

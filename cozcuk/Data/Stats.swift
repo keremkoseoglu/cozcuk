@@ -57,6 +57,7 @@ struct PuzzleSolutionFlags {
     public var hintShown    : Bool  = false
     public var puzzleSolved : Bool  = false
     public var gaveUp       : Bool  = false
+    public var statsUpdated : Bool  = false
     
     public var statisticType: StatisticType {
         if self.gaveUp { return StatisticType.gaveUpPuzzleCount }

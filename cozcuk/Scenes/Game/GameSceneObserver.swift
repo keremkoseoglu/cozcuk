@@ -33,10 +33,10 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
     func gamePanelButtonClicked(_ button: GamePanelButton) {
         switch button {
         case .exitGame:
+            updateStats()
             WelcomeScene.moveToView(self.gameScene.currentView!)
             
         case .nextPuzzle:
-            if !self.puzzleFlags!.puzzleSolved {self.puzzleFlags!.gaveUp = true}
             updateStats()
             PuzzleAnimator.getInstance().removeAnimationsFromParent()
             removeGarbageFromScene()
@@ -45,13 +45,15 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
             
         case .showAnswer:
             if self.puzzleFlags!.gaveUp || self.puzzleFlags!.puzzleSolved {return}
-            self.db.incrementStatistic(type: .hintGiveUpClickCount)
             if self.iap.purchaseNeeded { initiateInAppPurchase() }
             if self.iap.purchaseNeeded {return}
             
-            self.gameScene.panel?.disableAnswerRelatedStuff()
+            self.db.incrementStatistic(type: .hintGiveUpClickCount)
             self.puzzleFlags!.gaveUp = true
+            updateStats()
             self.gameScene.panel?.clock.pauseTimer()
+            
+            self.gameScene.panel?.disableAnswerRelatedStuff()
             removeGarbageFromScene()
             self.gameScene.puzzleManager?.showSolution()
             self.requestReview.userFinishedPuzzle(scene: self.gameScene)
@@ -84,6 +86,7 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
             
             switch (answerCorrect) {
             case true:
+                ToastWidget.removeToastsFromScene(scene: self.gameScene) // Hint aldıysa
                 self.gameScene.panel?.clock.pauseTimer()
                 self.gameScene.panel?.disableAnswerRelatedStuff()
                 
@@ -117,9 +120,12 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
     
     private func updateStats() {
         if !self.puzzleLoaded {return}
+        if self.puzzleFlags!.statsUpdated {return}
+        if !self.puzzleFlags!.puzzleSolved {self.puzzleFlags!.gaveUp = true}
         let db = Database.getInstance()
         db.incrementStatistic(type: StatisticType.puzzleAttemptCount)
         db.incrementStatistic(type: self.puzzleFlags!.statisticType)
+        self.puzzleFlags!.statsUpdated = true
     }
     
     private func removeGarbageFromScene() {

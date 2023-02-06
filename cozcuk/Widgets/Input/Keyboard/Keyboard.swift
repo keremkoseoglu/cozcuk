@@ -208,7 +208,9 @@ class Keyboard: ColorSchemeObserver {
                      + ( Keyboard.letterButtonSprite.size.width / 4 )
             
             for letter in keyRow {
-                let letterNode = createLetterNode(letter: String(letter), x: keyX, y: self.yCursor)
+                let letterNode = createLetterNode(letter: String(letter),
+                                                  x     : keyX          ,
+                                                  y     : self.yCursor)
                 self.letterKeys.append(letterNode)
                 
                 keyX += Keyboard.letterButtonSprite.size.width * self.scale
@@ -252,14 +254,15 @@ class Keyboard: ColorSchemeObserver {
     private func createLetterNode(letter    : String,
                                   x         : CGFloat,
                                   y         : CGFloat) -> LetterNode {
-        return LetterNode(scene       : self.scene,
-                          letter      : String(letter),
-                          position    : CGPoint(x: x, y: y),
-                          zPosition   : self.zPosition,
-                          scale       : self.scale,
-                          color       : Keyboard.LETTER_BUTTON_COLOR,
-                          alpha       : 1,
-                          textScale   : 0.75)
+        return LetterNode(scene         : self.scene                    ,
+                          letter        : String(letter)                ,
+                          position      : CGPoint(x: x, y: y)           ,
+                          zPosition     : self.zPosition                ,
+                          scale         : self.scale                    ,
+                          color         : Keyboard.LETTER_BUTTON_COLOR  ,
+                          alpha         : 1                             ,
+                          textScale     : 0.75                          ,
+                          rotated       : true)
     }
     
     private func createPushButton(color : PushButtonColor,

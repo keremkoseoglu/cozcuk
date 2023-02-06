@@ -6,22 +6,28 @@
 //
 
 #warning("feedbacks") /*
-OYUN
-    İpucu 9 kelime ekranda asılı kalabilir
+ACHIEVEMENTS
+    oyuna uygula
+    seviyesini görsün, iyi hissettir
+    tarihçede seviyesi görülsün
+    game center?
+IN-APP PURCHASE
+    başta kolay başlasın, biraz sarsın, sonra ipucuna ihtiyaç duyacak kadar (biraz) zorlaşsın ve bam 5 lira iste
+    random'a geçiş gradual olabilir. ilk 10 %100 kolay. ikinci 10 %80 kolay. üçüncü 10 %50 kolay gibi.
+    satın almamış biri için test: İpucu hakkım bitti. Zaten almıştıma bastım  tekrar verdi. Beta olduğu için mi
 YARDIM
     oyun doğrudan yardım bölümüyle açılsın
     bir kez yardımla açıldıysa, artık bir daha yardımla açılmasın
     yardım bölümü daha net olsun
         aşağıdaki senaryoları içerecek şekilde tasarla
+            Birkaç popüler kelime oyunu indirsen örnek olması açısından faydalı olabilir
             ters dönme mantığı anlaşılmamış
             cevabın her zaman tek kelime olduğu net söylensin
             eş anlamlı değil, yakın anlamlı kelime diyelim
             tam bir ekran gösterip, orada ipucu ve cevapları göstermek?
             ses butonu ile ses açıp kapatmayı da göster
+            yardım bölümünde, senin dediğin gibi, doğrudan oyun ekranı açıp simüle ederek anlatabilirim aslında iyi fikir
         tasarımı uygula
-IN-APP PURCHASE
-    başta kolay başlasın, biraz sarsın, sonra ipucuna ihtiyaç duyacak kadar (biraz) zorlaşsın ve bam 5 lira iste
-    satın almamış biri için test: İpucu hakkım bitti. Zaten almıştıma bastım  tekrar verdi. Beta olduğu için mi
 DEPLOY
     başka feedback var mı?
     warning kalmasın

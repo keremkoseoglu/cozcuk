@@ -5,6 +5,7 @@
 //  Created by Dr. Kerem Koseoglu on 30.08.2022.
 //
 
+
 import SpriteKit
 
 enum HintPuzzleOptionKey: String {
@@ -70,6 +71,7 @@ class HintPuzzleAnimation: PuzzleAnimation {
     private func showLetterCount() {
         let _ = ToastWidget(scene       : self.puzzleNode!.scene,
                             text        : "\(self.puzzleNode!.puzzle.solution.length) harf",
-                            zPosition   : self.puzzleNode!.zPosition + 1)
+                            zPosition   : self.puzzleNode!.zPosition + 1,
+                            fadeOut     : false)
     }
 }

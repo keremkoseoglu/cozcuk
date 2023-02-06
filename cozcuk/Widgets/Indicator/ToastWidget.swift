@@ -25,7 +25,10 @@ class ToastWidget {
         }
     }
     
-    public init(scene: SKScene, text: String, zPosition: CGFloat) {
+    public init(scene       : SKScene   ,
+                text        : String    ,
+                zPosition   : CGFloat   ,
+                fadeOut     : Bool  = true) {
         self.scene      = scene
         self.text       = text
         self.zPosition  = zPosition
@@ -36,7 +39,7 @@ class ToastWidget {
         self.label      = SKLabelNode(text: self.text)
         
         showToast()
-        disappear()
+        if fadeOut { disappear() }
     }
     
     private static func lazyCreateDisappearAction() {

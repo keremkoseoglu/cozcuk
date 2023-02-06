@@ -29,6 +29,7 @@ class LetterNode: EnableableWidget {
     private var _enableableNodes    : [SKNode]?
     private var enabler             : WidgetEnabler?
     private var _removed            : Bool
+    private var _rotated            : Bool
     
     public static var sampleNode: SKSpriteNode {
         get {
@@ -43,23 +44,25 @@ class LetterNode: EnableableWidget {
          letter     : String,
          position   : CGPoint,
          zPosition  : CGFloat,
-         scale      : CGFloat = 1,
+         scale      : CGFloat           = 1,
          color      : LetterButtonColor = LetterButtonColor.violet,
-         alpha      : CGFloat = 1,
-         textScale  : CGFloat = 1) {
-        self._scene      = scene
-        self._letter     = letter
-        self._position   = position
-        self.zPosition   = zPosition
-        self.scale       = scale
-        self._color      = color
-        self.alpha       = alpha
-        self._buttonNode = SKSpriteNode(imageNamed: self._color.imageName)
-        self._letterNode = SKLabelNode(text: self._letter)
-        self.textScale   = textScale
-        self._enabled    = true
-        self._removed    = false
-        self.position    = position
+         alpha      : CGFloat           = 1,
+         textScale  : CGFloat           = 1,
+         rotated    : Bool              = false) {
+        self._scene         = scene
+        self._letter        = letter
+        self._position      = position
+        self.zPosition      = zPosition
+        self.scale          = scale
+        self._color         = color
+        self.alpha          = alpha
+        self._buttonNode    = SKSpriteNode(imageNamed: self._color.imageName)
+        self._letterNode    = SKLabelNode(text: self._letter)
+        self.textScale      = textScale
+        self._enabled       = true
+        self._removed       = false
+        self._rotated       = rotated
+        self.position       = position
         
         setupButton()
         setupLetter()
@@ -170,6 +173,7 @@ class LetterNode: EnableableWidget {
         self._buttonNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self._buttonNode.alpha       = self.alpha
         self._buttonNode.setScale(self.scale)
+        if self._rotated {self._buttonNode.zRotation = .pi}
         self._scene?.addChild(self._buttonNode)
     }
     
