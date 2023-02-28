@@ -16,6 +16,7 @@ class GameScene: SKScene, CozcukScene {
     private var observer        : GameSceneObserver?
     
     public static func moveToView(_ view: SKView) {
+        ComboManager.getInstance().reset()
         let scene = GameScene(fileNamed: "GameScene")
         scene!.currentView = view
         scene!.cozcukShowInView(view)

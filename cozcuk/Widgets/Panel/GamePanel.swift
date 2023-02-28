@@ -19,6 +19,7 @@ class GamePanel {
     
     private var scene       : SKScene
     private var observers   : GamePanelObservers?
+    private var scoreBoard  : ScoreBoard?
     
     
     init(scene: SKScene, observers: GamePanelObservers?, zPosition: CGFloat = 1) {
@@ -38,6 +39,11 @@ class GamePanel {
                                  position   : CGPoint(x: 0, y: -250 * self.scene.cozcukScaleMax),
                                  zPosition  : zPosition,
                                  observer   : self.observers?.keyboardButton)
+        
+        do {
+            self.scoreBoard = try ScoreBoard(scene: self.scene,
+                                             position: CGPoint(x: self.clock.width / 3, y: self.buttons!.toggleMusicButton.position.y))
+        } catch {print(error)}
     }
     
     func touchesBegan(_ touches: Set<UITouch>) {

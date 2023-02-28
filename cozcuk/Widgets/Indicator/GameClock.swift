@@ -46,6 +46,10 @@ class GameClock: GameInfoWidget {
         return GameInfoWidgetProps(icon: GameClock.CLOCK_IMG)
     }
     
+    public var elapsedSeconds: Int {
+        get {return self.count}
+    }
+    
     public func startTimer() {
         lazyCreateTimer()
         resetTimer()

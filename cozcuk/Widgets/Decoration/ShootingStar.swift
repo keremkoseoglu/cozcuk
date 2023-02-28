@@ -8,7 +8,6 @@
 import SpriteKit
 
 class ShootingStar {
-    private static  let IMG_NAME        : String        = "stars_big"
     private static  let IMG_SCALE       : CGFloat       = 0.5
     private static  let TURN_ANGLE      : CGFloat       = 90
     private static  let TURN_DURATION   : CGFloat       = 1
@@ -16,7 +15,7 @@ class ShootingStar {
     private static  let MOVE_DURATION   : CGFloat       = 0.5
     private         var scene           : SKScene
     private         var zPosition       : CGFloat
-    private         var imgNode         : SKSpriteNode?
+    private         var imgNode         : Star?
     
     public init(scene: SKScene, zPosition: CGFloat) {
         self.scene      = scene
@@ -34,11 +33,11 @@ class ShootingStar {
     }
     
     private func initImgNode(pos: CGPoint) {
-        self.imgNode            = SKSpriteNode(imageNamed: ShootingStar.IMG_NAME)
+        self.imgNode            = Star()
         self.imgNode!.alpha     = 0
         self.imgNode!.position  = pos
         self.imgNode!.setScale(ShootingStar.IMG_SCALE * self.scene.cozcukScaleMax)
-        self.scene.addChild(self.imgNode!)
+        self.imgNode!.addToScene(self.scene)
     }
     
     private func startTurning() {

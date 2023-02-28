@@ -8,13 +8,13 @@
 import SpriteKit
 
 class ToastWidget {
-    private static  var nodes           : [SKNode] = [SKNode]()
-    private static  var disappearAction : SKAction?
-    private         var scene           : SKScene
-    private         var text            : String
-    private         var rect            : SKShapeNode
-    private         var label           : SKLabelNode
-    private         var zPosition       : CGFloat
+    private static  var nodes               : [SKNode] = [SKNode]()
+    private static  var disappearAction     : SKAction?
+    private         var scene               : SKScene
+    private         var text                : String
+    private         var rect                : SKShapeNode
+    private         var label               : SKLabelNode
+    private         var zPosition           : CGFloat
     
     public static func removeToastsFromScene(scene: SKScene) {
         for node in ToastWidget.nodes {
@@ -51,12 +51,14 @@ class ToastWidget {
     }
     
     private func showToast() {
+        let csm = ColorSchemeManager.getInstance()
+        
         self.rect.zPosition     = self.zPosition
-        self.rect.fillColor     = .white
+        self.rect.fillColor     = csm.userInterfaceStyle == .light ? .black : .white
         self.rect.position      = CGPoint(x: 0, y: 0)
         
         self.label.zPosition    = self.rect.zPosition + 1
-        self.label.fontColor    = .black
+        self.label.fontColor    = csm.userInterfaceStyle == .light ? .white : .black
         self.label.fontName     = LetterNode.FONT
         self.label.fontSize     = LetterNode.FONT_SIZE * self.scene.cozcukScaleMax * 0.25
         self.label.position     = CGPoint(x: 0, y: self.rect.frame.size.height * -0.20)

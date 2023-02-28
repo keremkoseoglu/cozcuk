@@ -5,6 +5,11 @@
 //  Created by Dr. Kerem Koseoglu on 24.06.2022.
 //
 
+#warning("kolay / orta / zor soru döndürebilecek bir destek olsun question queue içerisinde (PuzzleDifficulty.swift)") /*
+tamamla
+appdelegate.swift
+*/
+
 enum PuzzleQueueError: Error {
     case tooManyRandomWordAttempts
     case noPuzzleGenerated
@@ -16,13 +21,14 @@ struct PuzzleQueueDimensions {
 }
 
 class PuzzleQueue {
-    private static let MAX_ATTEMPT  : Int       = 100
-    private static let QUEUE_LABEL  : String    = "PuzzleQueue"
-    private static var SINGLETON    : PuzzleQueue?
-    public  var dimensions  : PuzzleQueueDimensions
-    private var wordDB      : WordDatabase
-    private var encoder     : WordEncoder
-    private var puzzles     : [Puzzle]
+    private static  let MAX_ATTEMPT     : Int       = 100
+    private static  let QUEUE_LABEL     : String    = "PuzzleQueue"
+    private static  var SINGLETON       : PuzzleQueue?
+    public          var dimensions      : PuzzleQueueDimensions
+    private         var wordDB          : WordDatabase
+    private         var encoder         : WordEncoder
+    private         var puzzles         : [Puzzle]
+    //private         var competencyPuzzles   : [PuzzleDifficultyCompetency:[Puzzle]]
     
     public static func getInstance() throws -> PuzzleQueue {
         if PuzzleQueue.SINGLETON == nil {

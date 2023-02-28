@@ -32,4 +32,16 @@ struct Puzzle {
     var solution            : PuzzleSolution    = PuzzleSolution()
     var built               : Bool              = false
     var replacementCount    : Int               = 0
+    
+    var reversedSolutionPartCount: Int {
+        get {
+            var result = 0
+            
+            for solutionPart in self.solution.solutionParts {
+                if solutionPart.isReversed {result += 1}
+            }
+            
+            return result
+        }
+    }
 }

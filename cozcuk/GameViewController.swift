@@ -23,8 +23,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            #warning("run mode live olacak")
-            startGame(scene     : WelcomeScene.self,
+            #warning("WelcomeScene olacak, run mode live olacak")
+            startGame(scene     : GameScene.self,
                       runMode   : .TEST,
                       view      : view)
         }

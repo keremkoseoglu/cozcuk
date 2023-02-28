@@ -6,13 +6,10 @@
 //
 
 #warning("feedbacks") /*
-ACHIEVEMENTS
-    oyuna uygula
-    seviyesini görsün, iyi hissettir
-    tarihçede seviyesi görülsün
-    game center?
 IN-APP PURCHASE
-    başta kolay başlasın, biraz sarsın, sonra ipucuna ihtiyaç duyacak kadar (biraz) zorlaşsın ve bam 5 lira iste
+    puzzlequeue.swift
+    questionqueue sayesinde: başta kolay başlasın, biraz sarsın, sonra ipucuna ihtiyaç duyacak kadar (biraz) zorlaşsın ve bam 5 lira iste
+        bilmeceleri genel olarak da üst üste random verme. kolay / orta / zor dengesi olsun. başta kolay olabilir. level atladıkça zor oranı artabilir.
     random'a geçiş gradual olabilir. ilk 10 %100 kolay. ikinci 10 %80 kolay. üçüncü 10 %50 kolay gibi.
     satın almamış biri için test: İpucu hakkım bitti. Zaten almıştıma bastım  tekrar verdi. Beta olduğu için mi
 YARDIM
@@ -27,11 +24,13 @@ YARDIM
             tam bir ekran gösterip, orada ipucu ve cevapları göstermek?
             ses butonu ile ses açıp kapatmayı da göster
             yardım bölümünde, senin dediğin gibi, doğrudan oyun ekranı açıp simüle ederek anlatabilirim aslında iyi fikir
+            puan sistemi
         tasarımı uygula
 DEPLOY
     başka feedback var mı?
     warning kalmasın
     yeni versiyon yolla
+    tester olarak ahu ve selin'i ekle
     feedback iste
 */
 

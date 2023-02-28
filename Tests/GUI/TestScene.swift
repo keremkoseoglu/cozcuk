@@ -24,7 +24,7 @@ class TestScene: SKScene, CozcukScene {
             // try testPuzzleNode()
             // try testPuzzleHint()
             // try testPanel()
-            try testPuzzleSolution()
+            // try testPuzzleSolution()
             // try testReverseWord()
             // try testReverseWordPartial()
             // try testRotateWord()
@@ -32,6 +32,14 @@ class TestScene: SKScene, CozcukScene {
             //testShootingStar()
             //testShootingStars()
             // testInAppPurchase()
+            // UserRankTest().execute()
+            // AchievementTest().execute()
+            // RankManagerTest().execute()
+            // try testScoreBoardStars()
+            // try testScoreBoardRanks()
+            // try testScoreBoardCombo()
+            // testRankEvaluationAnimation()
+            try testPuzzleDifficulty()
             
         } catch {
             print("error")
@@ -195,5 +203,99 @@ class TestScene: SKScene, CozcukScene {
         let stars = ShootingStars(scene: self, zPosition: 3)
         
         stars.shootHorizontal(fromX: -300, toX: 300, midY: 0, starCount: 3)
+    }
+    
+    private func testScoreBoardStars() throws {
+        _ = try ScoreBoard(scene: self, position: CGPoint(x: 0, y: 0))
+        
+        let rankManager = try RankManager.getInstance()
+        rankManager.userRank.reset()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            rankManager.userRank.increaseScore(scoreToAdd: 1000)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            rankManager.userRank.increaseScore(scoreToAdd: 1000)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+            rankManager.userRank.increaseScore(scoreToAdd: 1000)
+        }
+    }
+    
+    private func testScoreBoardRanks() throws {
+        _ = try ScoreBoard(scene: self, position: CGPoint(x: 0, y: 0))
+        let rankManager = try RankManager.getInstance()
+        rankManager.userRank.reset()
+        var pos = 1
+        
+        while pos < 50 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(pos)) {
+                rankManager.userRank.increaseLevel()
+            }
+            
+            pos += 1
+        }
+    }
+
+    private func testScoreBoardCombo() throws {
+        _ = try ScoreBoard(scene: self, position: CGPoint(x: 0, y: 0))
+        
+        let comboManager = ComboManager.getInstance()
+        var pos = 1
+        
+        while pos < 3 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(pos*2)) {
+                comboManager.increase()
+            }
+            
+            pos += 1
+        }
+    }
+    
+    private func testRankEvaluationAnimation() {
+        /*
+        RankEvaluationAnimator.getInstance().animateFreeStyle(
+            scene       : self                  ,
+            position    : CGPoint(x: 0, y: 0)   ,
+            zPosition   : 99                    ,
+            delay       : 0                     ,
+            text        : "Çok uzun metin"      ,
+            multiplier  : 3)
+         */
+        
+        let res =
+        RankEvaluationResult(
+            achievements: [Achievement(name: "Test achievement", multiplier: 4),
+                           Achievement(name: "Çok uzun soru", multiplier: 2)],
+            combo: Combo(comboCount: 2, multiplier: 2),
+            earnedScore: 10)
+        
+        RankEvaluationAnimator.getInstance().animateResult(
+            scene       : self,
+            result      : res,
+            position    : CGPoint(x: 0, y: 0),
+            zPosition   : 99,
+            puzzle      : nil)
+    }
+    
+    private func testPuzzleDifficulty() throws {
+        let calc    = PuzzleDifficultyCalculator.getInstance()
+        let queue   = try PuzzleQueue.getInstance()
+        
+        var puzzleCount = 0
+        
+        while puzzleCount < 10 {
+            let puzzle      = try queue.getNextPuzzle()
+            let difficulty  = try calc.calculateDifficulty(puzzle)
+            
+            print(puzzle.question + " - " + puzzle.answer)
+            print(difficulty.competency)
+            print(difficulty.level)
+            print(String(difficulty.score))
+            
+            puzzleCount += 1
+        }
     }
 }

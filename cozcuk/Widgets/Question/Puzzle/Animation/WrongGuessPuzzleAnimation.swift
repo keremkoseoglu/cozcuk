@@ -28,16 +28,18 @@ class WrongGuessPuzzleAnimation: PuzzleAnimation {
     
     func run(puzzleNode: PuzzleNode, options: PuzzleAnimationOptions) {
         FeedbackManager.getInstance().wrongAnswer(scene: puzzleNode.scene)
+        _ = ToastWidget(scene: puzzleNode.scene, text: "Yanlış", zPosition: 99, fadeOut: true)
         
-        self.wrongLabel = SKLabelNode(text: "Yanlış")
+        /*self.wrongLabel = SKLabelNode(text: "Yanlış")
         self.wrongLabel!.position = CGPoint(x: 0, y: -100 * puzzleNode.scene.cozcukScaleY) // Ekranda Hint varsa çakışmasın
         self.wrongLabel!.zPosition = 99
+        self.wrongLabel!.fontColor = csm.userInterfaceStyle == .light ? .black : .white
         puzzleNode.scene.addChild(self.wrongLabel!)
         
         WrongGuessPuzzleAnimation.nodes.append(self.wrongLabel!)
         
         let fadeOut = SKAction.fadeOut(withDuration: TimeInterval(3))
-        self.wrongLabel!.run(fadeOut)
+        self.wrongLabel!.run(fadeOut)*/
     }
     
     func stop(puzzleNode: PuzzleNode) {}

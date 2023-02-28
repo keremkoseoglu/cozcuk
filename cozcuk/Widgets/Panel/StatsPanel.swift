@@ -11,17 +11,16 @@ class StatsPanel: ColorSchemeObserver {
     private var scene       : SKScene
     private var zPosition   : CGFloat
     private var db          : Database
-    private var plaque      : WelcomePlaque
     private var buttons     : DoubleFooterButtons
     private var statLabel   : SKLabelNode?
     private var colorScheme : ColorSchemeManager
+    private var scoreBoard  : ScoreBoard?
+    private var plaque      : WelcomePlaque?
     
     init(scene: SKScene, zPosition: CGFloat = 1, observer: DoubleFooterButtonsObserver?) {
         self.scene          = scene
         self.zPosition      = zPosition
         self.db             = Database.getInstance()
-        self.plaque         = WelcomePlaque(scene: scene, zPosition: 9, text: WelcomePanelButtonFactory.STAT_TEXT)
-        
         self.buttons        = DoubleFooterButtons(scene: scene,
                                                   zPosition: zPosition + 1,
                                                   leftText: "Çıkış",
@@ -29,6 +28,13 @@ class StatsPanel: ColorSchemeObserver {
                                                   observer: observer)
         
         self.colorScheme    = ColorSchemeManager.getInstance()
+        
+        do {
+            self.scoreBoard = try ScoreBoard(scene: scene, position: CGPoint(x: 0, y: (scene.size.height / 2) - (100 * scene.cozcukScaleY)))
+        } catch {
+            self.plaque     = WelcomePlaque(scene: scene, zPosition: 9, text: WelcomePanelButtonFactory.STAT_TEXT)
+        }
+        
         self.setupStatLabel()
         self.colorScheme.addObserver(self)
     }

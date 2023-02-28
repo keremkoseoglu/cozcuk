@@ -15,6 +15,7 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
     private var db              : Database
     private var iap             : InAppPurchaseManager
     private var requestReview   : RequestReviewManager
+    private var rankManager     : RankManager?
     
     public init(gameScene: GameScene) {
         self.gameScene      = gameScene
@@ -22,6 +23,10 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
         self.db             = Database.getInstance()
         self.iap            = InAppPurchaseManager.getInstance()
         self.requestReview  = RequestReviewManager.getInstance()
+        
+        do {
+            self.rankManager = try RankManager.getInstance()
+        } catch {print(error)}
     }
     
     public var gamePanelObservers: GamePanelObservers {
@@ -39,6 +44,7 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
         case .nextPuzzle:
             updateStats()
             PuzzleAnimator.getInstance().removeAnimationsFromParent()
+            RankEvaluationResultBadgeAnimator.getInstance().removeAnimationsFromParent()
             removeGarbageFromScene()
             loadNewPuzzle()
             self.gameScene.panel?.enableAnswerRelatedStuff()
@@ -75,32 +81,19 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
     }
     
     func keyboardButtonClicked(_ button: KeyboardButton) {
-        switch button {
-        case .guess:
-            let userAnswer      = self.gameScene.panel?.keyboard?.screenText ?? ""
-            
-            if userAnswer == "" {return}
-            
-            let animator        = PuzzleAnimator.getInstance()
-            let answerCorrect   = self.gameScene.puzzleManager?.checkAnswer(answer: userAnswer)
-            
-            switch (answerCorrect) {
-            case true:
-                ToastWidget.removeToastsFromScene(scene: self.gameScene) // Hint aldıysa
-                self.gameScene.panel?.clock.pauseTimer()
-                self.gameScene.panel?.disableAnswerRelatedStuff()
-                
-                self.puzzleFlags!.puzzleSolved = true
-                animator.run(puzzleNode : self.gameScene.puzzleManager!.puzzleNode!,
-                             type       : .success)
-                
-                self.requestReview.userFinishedPuzzle(scene: self.gameScene)
-            case false:
-                animator.run(puzzleNode : self.gameScene.puzzleManager!.puzzleNode!,
-                             type       : .wrongGuess)
-            default:
-                return
-            }
+        if button != .guess {return}
+        
+        let userAnswer      =   self.gameScene.panel?.keyboard?.screenText ?? ""
+        if  userAnswer      ==  "" {return}
+        let answerCorrect   =   self.gameScene.puzzleManager?.checkAnswer(answer: userAnswer)
+        
+        switch (answerCorrect) {
+        case true:
+            handleCorrectAnswer()
+        case false:
+            handleWrongAnswer()
+        default:
+            return
         }
     }
     
@@ -121,7 +114,12 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
     private func updateStats() {
         if !self.puzzleLoaded {return}
         if self.puzzleFlags!.statsUpdated {return}
-        if !self.puzzleFlags!.puzzleSolved {self.puzzleFlags!.gaveUp = true}
+        
+        if !self.puzzleFlags!.puzzleSolved {
+            self.puzzleFlags!.gaveUp = true
+            ComboManager.getInstance().reset()
+        }
+        
         let db = Database.getInstance()
         db.incrementStatistic(type: StatisticType.puzzleAttemptCount)
         db.incrementStatistic(type: self.puzzleFlags!.statisticType)
@@ -136,6 +134,39 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
     
     private func initiateInAppPurchase() {
         InAppPurchasePopup(scene: self.gameScene).show()
+    }
+    
+    private func handleCorrectAnswer() {
+        ToastWidget.removeToastsFromScene(scene: self.gameScene) // Hint aldıysa
+        self.gameScene.panel?.clock.pauseTimer()
+        self.gameScene.panel?.disableAnswerRelatedStuff()
+        
+        self.puzzleFlags!.puzzleSolved  = true
+        self.puzzleFlags!.playDuration  = self.gameScene.panel?.clock.elapsedSeconds ?? 0
+        
+        if !(self.rankManager?.userRank.isMaxLevel ?? false) {
+            let rankResult = self.rankManager?.handlePuzzleSolution(
+                puzzle    : self.gameScene.puzzleManager!.puzzleNode!.puzzle,
+                flags     : self.puzzleFlags!)
+            
+            RankEvaluationAnimator.getInstance().animateResult(
+                scene       : self.gameScene,
+                result      : rankResult!,
+                position    : CGPoint(x: 0, y: -150 * self.gameScene.cozcukScaleY),
+                zPosition   : 15,
+                puzzle      : self.gameScene.puzzleManager!.puzzleNode!.puzzle
+            )
+        }
+            
+        PuzzleAnimator.getInstance().run(puzzleNode : self.gameScene.puzzleManager!.puzzleNode!,
+                                         type       : .success)
+        
+        self.requestReview.userFinishedPuzzle(scene: self.gameScene)
+    }
+    
+    private func handleWrongAnswer() {
+        PuzzleAnimator.getInstance().run(puzzleNode : self.gameScene.puzzleManager!.puzzleNode!,
+                                         type       : .wrongGuess)
     }
 
     
