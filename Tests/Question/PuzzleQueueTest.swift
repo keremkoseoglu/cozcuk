@@ -38,7 +38,7 @@ class PuzzleQueueTest {
         do {
             for _ in 0...queue.dimensions.safety*4 {
                 let puzzle = try queue.getNextPuzzle()
-                print("Puzzle: \(puzzle.question), queue count: \(queue.queuedPuzzleCount)")
+                print("Puzzle: \(puzzle.question), queue count: \(queue.getQueuedPuzzleCount())")
                 if waitInbetween {wait()}
             }
         } catch{print("Unexpected error: \(error)")}

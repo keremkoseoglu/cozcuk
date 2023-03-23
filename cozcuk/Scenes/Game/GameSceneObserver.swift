@@ -42,12 +42,12 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
             WelcomeScene.moveToView(self.gameScene.currentView!)
             
         case .nextPuzzle:
+            self.gameScene.panel?.disableAnswerRelatedStuff()
             updateStats()
             PuzzleAnimator.getInstance().removeAnimationsFromParent()
             RankEvaluationResultBadgeAnimator.getInstance().removeAnimationsFromParent()
             removeGarbageFromScene()
             loadNewPuzzle()
-            self.gameScene.panel?.enableAnswerRelatedStuff()
             
         case .showAnswer:
             if self.puzzleFlags!.gaveUp || self.puzzleFlags!.puzzleSolved {return}
@@ -101,14 +101,21 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
         self.gameScene.panel?.clock.pauseTimer()
         self.gameScene.panel?.keyboard?.screenText = ""
         self.gameScene.puzzleManager?.loadPuzzle()
-        self.gameScene.panel?.clock.startTimer()
         self.puzzleFlags = PuzzleSolutionFlags()
+        
+        if self.gameScene.puzzleManager!.puzzleNode == nil {
+            self.puzzleLoaded = false
+            _ = ToastWidget(scene: self.gameScene, text: "Yüklenemedi", zPosition: 99)
+            return
+        }
         
         PuzzleAnimator.getInstance().run(
             puzzleNode  : self.gameScene.puzzleManager!.puzzleNode!,
             type        : .load)
         
         self.puzzleLoaded = true
+        self.gameScene.panel?.enableAnswerRelatedStuff()
+        self.gameScene.panel?.clock.startTimer()
     }
     
     private func updateStats() {

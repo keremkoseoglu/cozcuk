@@ -9,6 +9,13 @@ enum PuzzleDifficultyLevel: String {
     case easy       = "Kolay"
     case medium     = "Orta"
     case hard       = "Zor"
+    
+    public var fallbackLevel: PuzzleDifficultyLevel {
+        switch self {
+        case .medium: return .easy
+        default: return .medium
+        }
+    }
 }
 
 enum PuzzleDifficultyCompetency: String {
@@ -20,89 +27,87 @@ enum PuzzleDifficultyCompetency: String {
 }
 
 struct PuzzleDifficulty {
-    public          var score               : Int   = 0
-    private static  let LEVEL_COUNT         : Int   = 3
-    private static  let COMPETENCY_COUNT    : Int   = 3
-    private static  var _LEVEL_WIDTH        : Int   = 0
-    private static  var _COMPETENCY_WIDTH   : Int   = 0
+    public          var questionRelatedAchievementMultiplierSum     : Int   = 0
+    private static  let LEVEL_COUNT                                 : Int   = 3
+    private static  let COMPETENCY_COUNT                            : Int   = 5
+    private static  var _levelMultiplierStep                        : Int   = 0
+    private static  var _competencyMultiplierStep                   : Int   = 0
+    private static  var _questionRelatedMultiplierSum               : Int   = 0
     
     public var level: PuzzleDifficultyLevel {
         get {
-            var iter    = 1
-            var width   = PuzzleDifficulty.LEVEL_WIDTH
+            var multiplierCursor    = PuzzleDifficulty.questionRelatedMultiplierSum
+            var iter                = 1
             
             while (true) {
-                if self.score < width {
+                multiplierCursor -= PuzzleDifficulty.levelMultiplierStep
+                
+                if self.questionRelatedAchievementMultiplierSum > multiplierCursor {
                     switch (iter) {
-                    case 1  : return PuzzleDifficultyLevel.easy
+                    case 1  : return PuzzleDifficultyLevel.hard
                     case 2  : return PuzzleDifficultyLevel.medium
-                    default : return PuzzleDifficultyLevel.hard
+                    default : return PuzzleDifficultyLevel.easy
                     }
                 }
                 
                 iter += 1
-                width += width
+                if iter > PuzzleDifficulty.LEVEL_COUNT {return PuzzleDifficultyLevel.easy}
             }
         }
     }
     
     public var competency: PuzzleDifficultyCompetency {
         get {
-            var iter    = 1
-            var width   = PuzzleDifficulty.COMPETENCY_WIDTH
+            var multiplierCursor    = PuzzleDifficulty.questionRelatedMultiplierSum
+            let multiplierStep      = multiplierCursor / PuzzleDifficulty.LEVEL_COUNT
+            var iter                = 1
             
             while (true) {
-                if self.score < width {
+                multiplierCursor -= multiplierStep
+                
+                if self.questionRelatedAchievementMultiplierSum > multiplierCursor {
                     switch (iter) {
-                    case 1  : return PuzzleDifficultyCompetency.beginner
-                    case 2  : return PuzzleDifficultyCompetency.novice
+                    case 1  : return PuzzleDifficultyCompetency.expert
+                    case 2  : return PuzzleDifficultyCompetency.advanced
                     case 3  : return PuzzleDifficultyCompetency.intermediate
-                    case 4  : return PuzzleDifficultyCompetency.advanced
-                    default : return PuzzleDifficultyCompetency.expert
+                    case 4  : return PuzzleDifficultyCompetency.novice
+                    default : return PuzzleDifficultyCompetency.beginner
                     }
                 }
                 
                 iter += 1
-                width += width
+                if iter > PuzzleDifficulty.COMPETENCY_COUNT {return PuzzleDifficultyCompetency.beginner}
             }
         }
     }
     
-    private static var LEVEL_WIDTH: Int {
+    private static var levelMultiplierStep: Int {
         get {
-            if PuzzleDifficulty._LEVEL_WIDTH == 0 {
-                do {
-                    PuzzleDifficulty._LEVEL_WIDTH = try PuzzleDifficulty.calcWidth(stepCount: PuzzleDifficulty.LEVEL_COUNT)
-                }
-                catch {
-                    print(error)
-                    PuzzleDifficulty._LEVEL_WIDTH = 1
-                }
+            if PuzzleDifficulty._levelMultiplierStep == 0 {
+                let multiplierCursor        = PuzzleDifficulty.questionRelatedMultiplierSum
+                self._levelMultiplierStep   = multiplierCursor / PuzzleDifficulty.LEVEL_COUNT
             }
-            
-            return PuzzleDifficulty._LEVEL_WIDTH
+            return PuzzleDifficulty._levelMultiplierStep
         }
     }
     
-    private static var COMPETENCY_WIDTH: Int {
+    private static var competencyMultiplierStep: Int {
         get {
-            if PuzzleDifficulty._COMPETENCY_WIDTH == 0 {
-                do {
-                    PuzzleDifficulty._COMPETENCY_WIDTH = try PuzzleDifficulty.calcWidth(stepCount: PuzzleDifficulty.COMPETENCY_COUNT)
-                }
-                catch {
-                    print(error)
-                    PuzzleDifficulty._COMPETENCY_WIDTH = 1
-                }
+            if PuzzleDifficulty._competencyMultiplierStep == 0 {
+                let multiplierCursor            = PuzzleDifficulty.questionRelatedMultiplierSum
+                self._competencyMultiplierStep  = multiplierCursor / PuzzleDifficulty.COMPETENCY_COUNT
             }
-            
-            return PuzzleDifficulty._COMPETENCY_WIDTH
+            return PuzzleDifficulty._competencyMultiplierStep
         }
     }
     
-    private static func calcWidth(stepCount: Int) throws -> Int {
-        let maxScore = try RankManager.getInstance().maxPossibleScoreWithoutCombo
-        return maxScore / stepCount
+    private static var questionRelatedMultiplierSum: Int {
+        get {
+            if PuzzleDifficulty._questionRelatedMultiplierSum == 0 {
+                PuzzleDifficulty._questionRelatedMultiplierSum = AchievementManager.getInstance().questionRelatedMultiplerSum
+            }
+            return PuzzleDifficulty._questionRelatedMultiplierSum
+        }
     }
 }
 
@@ -121,12 +126,12 @@ class PuzzleDifficultyCalculator {
     public func calculateDifficulty(_ puzzle: Puzzle) throws -> PuzzleDifficulty {
         let rankManager = try RankManager.getInstance()
         
-        var rankResult = rankManager.handlePuzzleSolution(
+        let rankResult = rankManager.handlePuzzleSolution(
                             puzzle      : puzzle,
                             flags       : PuzzleDifficultyCalculator.PUZZLE_SOLUTION_FLAGS,
-                            saveToDb    : false)
+                            calcOnly    : true)
         
-        var puzzleDifficulty = PuzzleDifficulty(score: rankResult.earnedScore)
+        let puzzleDifficulty = PuzzleDifficulty(questionRelatedAchievementMultiplierSum: rankResult.questionRelatedMultiplierSum)
         return puzzleDifficulty
     }
     

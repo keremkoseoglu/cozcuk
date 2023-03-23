@@ -53,6 +53,8 @@ class TutorialLabeledPuzzleSlide: Slide, ColorSchemeObserver {
         self.puzzleLabel!.position              = CGPoint(x: 0, y: labelY)
         self.puzzleLabel!.zPosition             = zPosition
         self.puzzleLabel!.verticalAlignmentMode = .bottom
+        self.puzzleLabel!.fontName              = "Impact"
+        self.puzzleLabel!.fontSize              = 45 * scene.cozcukScaleMax
         setPuzzleLabelColor()
         scene.addChild(self.puzzleLabel!)
     }

@@ -39,7 +39,8 @@ class TestScene: SKScene, CozcukScene {
             // try testScoreBoardRanks()
             // try testScoreBoardCombo()
             // testRankEvaluationAnimation()
-            try testPuzzleDifficulty()
+            // try testPuzzleDifficulty()
+            try testPuzzleGenerations()
             
         } catch {
             print("error")
@@ -267,8 +268,8 @@ class TestScene: SKScene, CozcukScene {
         
         let res =
         RankEvaluationResult(
-            achievements: [Achievement(name: "Test achievement", multiplier: 4),
-                           Achievement(name: "Çok uzun soru", multiplier: 2)],
+            achievements: [Achievement(name: "Test achievement", multiplier: 4, questionRelated: true),
+                           Achievement(name: "Çok uzun soru", multiplier: 2, questionRelated: true)],
             combo: Combo(comboCount: 2, multiplier: 2),
             earnedScore: 10)
         
@@ -293,9 +294,43 @@ class TestScene: SKScene, CozcukScene {
             print(puzzle.question + " - " + puzzle.answer)
             print(difficulty.competency)
             print(difficulty.level)
-            print(String(difficulty.score))
+            print(String(difficulty.questionRelatedAchievementMultiplierSum))
             
             puzzleCount += 1
         }
+    }
+    
+    private func testPuzzleGenerations() throws {
+        print("STARTING: EASY")
+        try testPuzzleGeneration(level: .easy)
+        print("STARTING: MEDIUM")
+        try testPuzzleGeneration(level: .medium)
+        print("STARTING: HARD")
+        try testPuzzleGeneration(level: .hard)
+    }
+    
+    private func testPuzzleGeneration(level: PuzzleDifficultyLevel, maxPuzzles: Int = 5) throws {
+        let calc        = PuzzleDifficultyCalculator.getInstance()
+        let queue       = try PuzzleQueue.getInstance()
+        var puzzleCount = 0
+        
+        while puzzleCount < maxPuzzles {
+            do {
+                let puzzle      = try queue.getNextPuzzle(level: level)
+                let difficulty  = try calc.calculateDifficulty(puzzle)
+                print(puzzle.question + " - " + puzzle.answer + " is:")
+                print(difficulty.level)
+                print(difficulty.competency)
+                if difficulty.level.rawValue != level.rawValue {
+                    print("DIFFERENT!")
+                }
+            } catch {
+                print(error)
+                print("falling back")
+                try testPuzzleGeneration(level: level.fallbackLevel, maxPuzzles: 1)
+            }
+            puzzleCount += 1
+        }
+        
     }
 }

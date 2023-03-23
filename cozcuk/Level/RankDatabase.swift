@@ -53,9 +53,15 @@ class RankDatabase {
         
         for pair in strArray {
             let split = pair.components(separatedBy: RankDatabase.SEPARATOR)
-            let newRank = Rank(level        : Int(split[0])!,
-                               requiredScore: Int(split[1])!,
-                               name         : split[2])
+            var newRank = Rank(level                            : Int(split[0])!,
+                               requiredScore                    : Int(split[1])!,
+                               name                             : split[2],
+                               puzzleDifficultyLevelPercentages : [PuzzleDifficultyLevel:Int]())
+            
+            newRank.puzzleDifficultyLevelPercentages[.easy]     = Int(split[3]);
+            newRank.puzzleDifficultyLevelPercentages[.medium]   = Int(split[4]);
+            newRank.puzzleDifficultyLevelPercentages[.hard]     = Int(split[5]);
+            
             self._ranks.append(newRank)
         }
     }

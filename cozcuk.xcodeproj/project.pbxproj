@@ -96,6 +96,7 @@
 		0C63F895292A36720006DBCD /* Middle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C63F894292A36720006DBCD /* Middle.swift */; };
 		0C65E6BE28BF81790050AA2D /* ToastWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C65E6BD28BF81790050AA2D /* ToastWidget.swift */; };
 		0C6BFC9129ACC01400B6011E /* PuzzleDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BFC9029ACC01400B6011E /* PuzzleDifficulty.swift */; };
+		0C6BFC9329B4EE9E00B6011E /* GradedPuzzleQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BFC9229B4EE9E00B6011E /* GradedPuzzleQueue.swift */; };
 		0C729E4828B3FE63004D7DF5 /* GameSceneObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C729E4728B3FE63004D7DF5 /* GameSceneObserver.swift */; };
 		0C812CE82999347E00CA592C /* ComboManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C812CE72999342100CA592C /* ComboManager.swift */; };
 		0C812CE92999348300CA592C /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C812CE4299930DD00CA592C /* AchievementManager.swift */; };
@@ -264,6 +265,7 @@
 		0C63F894292A36720006DBCD /* Middle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Middle.swift; sourceTree = "<group>"; };
 		0C65E6BD28BF81790050AA2D /* ToastWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWidget.swift; sourceTree = "<group>"; };
 		0C6BFC9029ACC01400B6011E /* PuzzleDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleDifficulty.swift; sourceTree = "<group>"; };
+		0C6BFC9229B4EE9E00B6011E /* GradedPuzzleQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradedPuzzleQueue.swift; sourceTree = "<group>"; };
 		0C729E4728B3FE63004D7DF5 /* GameSceneObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneObserver.swift; sourceTree = "<group>"; };
 		0C812CE4299930DD00CA592C /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		0C812CE72999342100CA592C /* ComboManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboManager.swift; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 				0CB657AD286582E800CA0EE2 /* PuzzleQueue.swift */,
 				0C55E8792864B030008B24DA /* WordEncoder.swift */,
 				0C6BFC9029ACC01400B6011E /* PuzzleDifficulty.swift */,
+				0C6BFC9229B4EE9E00B6011E /* GradedPuzzleQueue.swift */,
 			);
 			path = Puzzle;
 			sourceTree = "<group>";
@@ -1122,6 +1125,7 @@
 				0C4F6C9B298AC1CF00B490BA /* SynonymHistory.swift in Sources */,
 				0C99BDE828637E8D002230EE /* AppDelegate.swift in Sources */,
 				0CF995AC28BCD49E00942C14 /* WelcomePanelButtons.swift in Sources */,
+				0C6BFC9329B4EE9E00B6011E /* GradedPuzzleQueue.swift in Sources */,
 				0C25A4DA28B4FDF000D7EC45 /* GameScenePuzzleManager.swift in Sources */,
 				0CF995A828BCD13600942C14 /* WelcomePanel.swift in Sources */,
 				0C07DED928AACDDB007A9C6E /* GameSuccessWidget.swift in Sources */,

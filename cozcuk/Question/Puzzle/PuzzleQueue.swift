@@ -5,11 +5,6 @@
 //  Created by Dr. Kerem Koseoglu on 24.06.2022.
 //
 
-#warning("kolay / orta / zor soru döndürebilecek bir destek olsun question queue içerisinde (PuzzleDifficulty.swift)") /*
-tamamla
-appdelegate.swift
-*/
-
 enum PuzzleQueueError: Error {
     case tooManyRandomWordAttempts
     case noPuzzleGenerated
@@ -21,14 +16,14 @@ struct PuzzleQueueDimensions {
 }
 
 class PuzzleQueue {
-    private static  let MAX_ATTEMPT     : Int       = 100
-    private static  let QUEUE_LABEL     : String    = "PuzzleQueue"
-    private static  var SINGLETON       : PuzzleQueue?
-    public          var dimensions      : PuzzleQueueDimensions
-    private         var wordDB          : WordDatabase
-    private         var encoder         : WordEncoder
-    private         var puzzles         : [Puzzle]
-    //private         var competencyPuzzles   : [PuzzleDifficultyCompetency:[Puzzle]]
+    private static  let MAX_ATTEMPT             : Int       = 200
+    private static  let QUEUE_LABEL             : String    = "PuzzleQueue"
+    private static  var SINGLETON               : PuzzleQueue?
+    public          var dimensions              : PuzzleQueueDimensions
+    private         var wordDB                  : WordDatabase
+    private         var encoder                 : WordEncoder
+    private         var gradedPuzzles           : [PuzzleDifficultyLevel:[Puzzle]]
+    private         var difficultyCalculator    : PuzzleDifficultyCalculator
     
     public static func getInstance() throws -> PuzzleQueue {
         if PuzzleQueue.SINGLETON == nil {
@@ -37,40 +32,36 @@ class PuzzleQueue {
         return PuzzleQueue.SINGLETON!
     }
     
-    public var queuedPuzzleCount: Int {get {return self.puzzles.count}}
+    public func getQueuedPuzzleCount(level: PuzzleDifficultyLevel = .medium) -> Int {
+        return self.gradedPuzzles[level]!.count
+    }
     
-    public func getNextPuzzle() throws -> Puzzle {
-        if self.puzzles.count <= self.dimensions.safety {refillQueue()}
-        if self.puzzles.isEmpty {throw PuzzleQueueError.noPuzzleGenerated}
-        
-        let result = self.puzzles[0]
-        self.puzzles.remove(at: 0)
-        return result
+    public func getNextPuzzle(level: PuzzleDifficultyLevel = .medium) throws -> Puzzle {
+        var puzzleArray = self.gradedPuzzles[level]
+        let nextPuzzle = try getNextPuzzleInArray(array  : &puzzleArray!,
+                                                  level  : level)
+        self.gradedPuzzles[level] = puzzleArray
+        return nextPuzzle
     }
     
     private init() throws {
         self.wordDB         = try WordDatabase.getInstance()
         self.encoder        = WordEncoder.getInstance()
-        self.puzzles        = [Puzzle]()
         self.dimensions     = PuzzleQueueDimensions()
+        self.gradedPuzzles  = [.easy        : [Puzzle](),
+                               .medium      : [Puzzle](),
+                               .hard        : [Puzzle]()]
+        self.difficultyCalculator = PuzzleDifficultyCalculator.getInstance()
     }
     
-    private func generatePuzzles(count: Int) throws {
-        if count <= 0 {return}
-        
-        for _ in 0...count-1 {
-            let puzzle = try generateRandomPuzzle()
-            self.puzzles.append(puzzle)
-        }
-    }
-    
-    private func generateRandomPuzzle() throws -> Puzzle {
+    private func generateRandomPuzzle(level: PuzzleDifficultyLevel?) throws -> Puzzle {
         let synonymHistory          = SynonymHistory.getInstance()
         var result                  = Puzzle()
         var attempts        : Int   = 0
         var historyCleared  : Bool  = false
+        var levelMatch      : Bool  = false
         
-        while !result.built {
+        while !(result.built && levelMatch) {
             let randomWord  = self.wordDB.popRandomWord()
             result          = try self.encoder.encode(word: randomWord)
             
@@ -83,7 +74,25 @@ class PuzzleQueue {
                     continue
                 }
                 
+                print("throwing too many random word attempts")
                 throw PuzzleQueueError.tooManyRandomWordAttempts
+            }
+            
+            if !result.built {continue}
+
+            if (level == nil) {
+                levelMatch = true
+            } else {
+                do {
+                    let resultLevel = try self.difficultyCalculator.calculateDifficulty(result).level
+                    levelMatch = resultLevel == level
+                    
+                    if !levelMatch {
+                        self.gradedPuzzles[resultLevel]!.append(result)
+                        synonymHistory.recordPuzzleSynonyms(result)
+                    }
+                }
+                catch {levelMatch = false}
             }
         }
         
@@ -91,11 +100,41 @@ class PuzzleQueue {
         return result
     }
     
-    private func refillQueue() {
+    private func getNextPuzzleInArray(array: inout [Puzzle], level: PuzzleDifficultyLevel, isFallback: Bool = false) throws -> Puzzle {
+        if array.count <= self.dimensions.safety {refillPuzzleArray(array   : &array,
+                                                                    level   : level)}
+        if array.isEmpty {
+            guard !isFallback else {
+                print("throwing no puzzle generated")
+                throw PuzzleQueueError.noPuzzleGenerated
+            }
+            print("PuzzleQueue is falling back")
+            return try getNextPuzzleInArray(array: &array, level: level.fallbackLevel, isFallback: true)
+        }
+        
+        let result = array[0]
+        array.remove(at: 0)
+        return result
+    }
+    
+    private func generatePuzzles(array: inout [Puzzle], count: Int, level: PuzzleDifficultyLevel) throws {
+        if count <= 0 {return}
+        
+        for _ in 0...count-1 {
+            let puzzle = try generateRandomPuzzle(level: level)
+            array.append(puzzle)
+        }
+    }
+    
+    private func refillPuzzleArray(array: inout [Puzzle], level: PuzzleDifficultyLevel) {
         do {
-            let missingPuzzleCount = self.dimensions.size - self.puzzles.count
+            let missingPuzzleCount = self.dimensions.size - array.count
             if missingPuzzleCount <= 0 {return}
-            try self.generatePuzzles(count: missingPuzzleCount)
-        } catch {print(error)}
+            try self.generatePuzzles(array  : &array,
+                                     count  : missingPuzzleCount,
+                                     level  : level)
+        } catch {
+            print("Refill puzzle array error: \(error)")
+        }
     }
 }

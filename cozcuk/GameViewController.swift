@@ -9,23 +9,15 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-#warning("game view controller startup") /*
-moveToView protocol olsun
-    stats scene
-game starter diye bir sınıf yap
-game view controller oraya gitsin
-*/
-
 class GameViewController: UIViewController {
-
+    private static let STARTED_WITH_HELP_KEY: String = "GVCStartedWithHelp"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            #warning("WelcomeScene olacak, run mode live olacak")
-            startGame(scene     : GameScene.self,
-                      runMode   : .TEST,
+            startGame(scene     : getStartupScene(),
+                      runMode   : .LIVE,
                       view      : view)
         }
     }
@@ -67,5 +59,17 @@ class GameViewController: UIViewController {
         view.ignoresSiblingOrder    = true
         view.showsFPS               = container.showsFPS
         view.showsNodeCount         = container.showsNodeCount
+    }
+    
+    private func getStartupScene() -> CozcukScene.Type {
+        var startupScene = WelcomeScene.self as CozcukScene.Type
+        
+        let db = Database.getInstance()
+        if !db.getBool(GameViewController.STARTED_WITH_HELP_KEY) {
+            startupScene = TutorialScene.self as CozcukScene.Type
+            db.setBool(GameViewController.STARTED_WITH_HELP_KEY, true)
+        }
+        
+        return startupScene
     }
 }

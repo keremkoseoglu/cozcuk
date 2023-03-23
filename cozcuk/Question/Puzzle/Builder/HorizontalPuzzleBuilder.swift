@@ -76,9 +76,7 @@ class HorizontalPuzzleBuilder {
                 direction.synFound(pos: &pos, remainWord: &remainWord)
             }
             
-            if prevRemainWord != remainWord {
-                continue
-            }
+            if prevRemainWord != remainWord {continue}
             
             var elimLetter = ""
             direction.remainWordNotChanged(remainWord: &remainWord, elimLetter: &elimLetter)

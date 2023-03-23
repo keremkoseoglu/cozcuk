@@ -32,6 +32,8 @@ class TutorialLabeledButtonSlide: Slide, ColorSchemeObserver {
         self.buttonLabel!.position  = CGPoint(x: 0, y: labelY)
         self.buttonLabel!.zPosition = zPosition
         self.buttonLabel!.verticalAlignmentMode = .bottom
+        self.buttonLabel!.fontName              = "Impact"
+        self.buttonLabel!.fontSize              = 45 * scene.cozcukScaleMax
         setButtonLabelColor()
         scene.addChild(self.buttonLabel!)
     }

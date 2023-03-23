@@ -24,18 +24,21 @@ class GameScenePuzzleManager {
     }
     
     public func loadPuzzle()  {
+        self.puzzleNode?.wordNode.removeFromScene()
         do {
-            let puzzle = try PuzzleQueue.getInstance().getNextPuzzle()
+            // let puzzle = try PuzzleQueue.getInstance().getNextPuzzle()
+            let puzzle = try GradedPuzzleQueue.getInstance().getNextPuzzle()
             loadPrebuiltPuzzle(puzzle)
         }
-        catch {return}
-        
+        catch {
+            return
+        }
         
     }
     
     public func loadPrebuiltPuzzle(_ puzzle: Puzzle) {
         self.puzzleNode?.wordNode.removeFromScene()
-
+        
         self.puzzleNode = PuzzleNode(scene      : self.scene,
                                      puzzle     : puzzle,
                                      position   : CGPoint(x: 0, y: self.scene.size.height / 5),
