@@ -5,7 +5,6 @@
 //  Created by Dr. Kerem Koseoglu on 16.08.2022.
 //
 
-
 import SpriteKit
 
 enum GamePanelButton {
@@ -48,6 +47,7 @@ class GamePanelButtons {
         self.toggleMusicButton.checked = AudioManager.getInstance().soundIsOn
         
         self.answerRelatedButtons = [self.hintButton, self.showAnswerButton]
+        refreshAnswerRelatedButtonTexts()
     }
     
     public func touchesBegan(_ touches: Set<UITouch>) {
@@ -99,6 +99,18 @@ class GamePanelButtons {
     
     public func enableAnswerRelatedButtons() {
         setAnswerRelatedButtonsEnabled(enabled: true)
+    }
+    
+    public func refreshAnswerRelatedButtonTexts() {
+        self.hintButton.text        = GamePanelButtonFactory.HINT_BUTTON_TEXT
+        self.showAnswerButton.text  = GamePanelButtonFactory.ANSWER_BUTTON_TEXT
+        
+        let purchManager = InAppPurchaseManager.getInstance()
+        if purchManager.remainingFreeClicks <= 0 {return}
+        let textSuffix: String = " (" + String(purchManager.remainingFreeClicks) + ")"
+        
+        self.hintButton.text += textSuffix
+        self.showAnswerButton.text += textSuffix
     }
     
     private func setAnswerRelatedButtonsEnabled(enabled: Bool) {

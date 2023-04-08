@@ -44,6 +44,13 @@ class InAppPurchaseManager: NSObject, SKProductsRequestDelegate, SKRequestDelega
     
     public var onReceiveProductsHandler: ((Result<[SKProduct], InAppPurchaseManagerError>) -> Void)?
     
+    public var remainingFreeClicks: Int {
+        get {
+            if !purchaseNeeded {return 0}
+            return InAppPurchaseManager.FREE_HINT_SOLUTION_COUNT - Int(self.db.getStatistic(type: .hintGiveUpClickCount).value)
+        }
+    }
+    
     public var freeUsageOver: Bool {
         get {
             if GameRunModeManager.getInstance().container.infiniteFreeUsage {return false}

@@ -9,7 +9,7 @@ import SpriteKit
 
 class WelcomePanelButtonFactory {
     public  static  let PLAY_TEXT               : String            = "Oyna"
-    public  static  let STAT_TEXT               : String            = "Tarihçe"
+    public  static  let STAT_TEXT               : String            = "İstatistik"
     private static  let IMAGE_SCALE_MULTI       : CGFloat           = 0.6
     private static  let TEXT_SCALE_MULTI        : CGFloat           = 0.6
     private static  let TEXT_MARGIN_MULTI       : CGFloat           = 1

@@ -63,6 +63,7 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
             removeGarbageFromScene()
             self.gameScene.puzzleManager?.showSolution()
             self.requestReview.userFinishedPuzzle(scene: self.gameScene)
+            self.gameScene.panel?.buttons?.refreshAnswerRelatedButtonTexts()
 
         case .showHint:
             if self.puzzleFlags!.hintShown || self.puzzleFlags!.gaveUp || self.puzzleFlags!.puzzleSolved {return}
@@ -73,6 +74,7 @@ class GameSceneObserver: GamePanelButtonsObserver, KeyboardButtonsObserver {
             
             self.puzzleFlags!.hintShown = true
             self.gameScene.puzzleManager?.showHint()
+            self.gameScene.panel?.buttons?.refreshAnswerRelatedButtonTexts()
             
         case .toggleMusic:
             self.gameScene.panel!.buttons!.toggleMusicButton.toggle()
