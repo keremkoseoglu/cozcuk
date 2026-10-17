@@ -4,6 +4,8 @@ A Turkish-language word puzzle game for iPhone and iPad, built with Swift and Sp
 
 Cozcuk hides words through synonym substitutions. Find the meaningful pieces in a seemingly unfamiliar string, work out their equivalents, and reconstruct the original Turkish word. Some pieces use reversed spellings, adding another layer to the puzzle.
 
+<img width="500" height="500" alt="instagram" src="https://github.com/user-attachments/assets/9e54228c-4611-4606-a709-3a4f681f22f7" />
+
 ## How to Play
 
 1. Tap **Oyna** to start.
